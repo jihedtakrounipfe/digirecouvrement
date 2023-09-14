@@ -1,0 +1,63 @@
+<section>
+  <form [formGroup]="updateForm">
+    <div class="d-flex justify-content-between">
+    <div class="form-group col-md-3">
+
+      <label class="title"><p class="fnt-size fw-bold">Créances</p></label>
+
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Créances" formControlName="nomcreance">
+            <mat-option *ngFor="let docs of creances" [value]="docs">{{
+              docs
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label class="title"><p class="fnt-size fw-bold">Montant</p></label>
+
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="Montant" type="text" formControlName="montant" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label class="title"><p class="fnt-size fw-bold">Nature</p></label>
+
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Nature" formControlName="nature">
+            <mat-option *ngFor="let docs of natureCR" [value]="docs">{{
+              docs
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label class="title"><p class="fnt-size fw-bold">Date d’effet des IR</p></label>
+
+      <div class="d-inline-block text-dark w-100 px-1">
+        <!-- <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="Date d’effet des IR" type="text" formControlName="datedeffdesir" />
+        </mat-form-field> -->
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker" type="text" placeholder="Date d’effet des IR" formControlName="datedeffdesir"/>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-1 d-flex justify-content-center">
+      <a (click)="onSubmit()" type="submit"
+        ><img src="./assets/plus.png" class="icon"
+      /></a>
+    </div>
+
+</div>
+  </form>
+</section>

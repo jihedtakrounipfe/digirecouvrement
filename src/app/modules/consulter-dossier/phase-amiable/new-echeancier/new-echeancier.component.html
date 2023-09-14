@@ -1,0 +1,70 @@
+<section>
+  <form [formGroup]="New_Echeancier_Form">
+    <div class="d-flex justify-content-between">
+      <div class="form-group col-md-3">
+        <label class="title">Périodicite</label>
+        <div class="d-inline-block mb-2 text-dark mt-4 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Créances" formControlName="periodicite">
+              <mat-option *ngFor="let docs of echeancier" [value]="docs">{{
+                docs
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label class="title">Montant</label>
+        <div class="d-inline-block mb-2 text-dark w-100 px-1 mt-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Montant"
+              type="text"
+              formControlName="montant"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-3">
+        <label class="title">Date 1ere Echéance</label>
+        <div class="d-inline-block mb-2 text-dark  w-100 px-1 mt-4">
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker" placeholder="Date 1ere Echéance"
+              formControlName="datePremiereEcheancier">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group col-md-2 px-2 text-center">
+        <label class="title">Heure</label>
+      <div class="time-picker py-4 ">
+        <div class="hour">
+          <div class="hr-up" (click)="hour_up()"></div>
+          <br>
+          <input type="number" class="hr py-3" [value]="hourValue" readonly/>
+          <br>
+          <div class="hr-down" (click)="hour_down()"></div>
+        </div>
+        <div class="separator">:</div>
+        <div class="minute">
+          <div class="min-up" (click)=" minute_up()"></div>
+          <br>
+          <input type="number" class="min py-3" [value]="minuteValue" readonly>
+          <br>
+          <div class="min-down" (click)=" minute_down()"></div>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-2 d-flex justify-content-center">
+        <a (click)="save()" type="submit"
+          ><img src="./assets/plus.png" class="icon"
+        /></a>
+      </div>
+    </div>
+  </form>
+</section>
+

@@ -1,0 +1,34 @@
+::ng-deep .adf-container-full-width {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+
+  .mat-column-telephone {
+    flex: 0 0 21%;
+  }
+  .phone-btn {
+    padding: 0 5px !important;
+    line-height: 25px !important;
+    width: 100% !important;
+  }
+  .save-btn {
+    border: 1px solid #1170C4;
+    padding: 0 15px !important;
+    line-height: 34px !important;
+    color: #1170C4 !important;
+    width: 100% !important;
+    background: #fff !important;
+  }
+  .overflow-horizentale{
+   overflow-x: auto;
+   margin: 0px 15px;
+  }
+  .fnt-10{
+    font-size: 10px;
+  }
+  .mat-icon {
+
+    font-size: 17px;
+  }

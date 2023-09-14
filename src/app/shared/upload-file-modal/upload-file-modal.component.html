@@ -1,0 +1,67 @@
+<section *ngIf="Base64File">
+<div class="d-flex justify-content-end ">
+  <a (click)=" onCancel()"><img src="./../../../assets/error.png" class="icon-end"></a>
+</div>
+<div class="form-group py-2">
+  <div class="file-input-wrapper">
+    <button class="btn-file-input"><img src="./assets/file.png"></button>
+    <input type="file" name="file" (change)="readUrl($event)" required/>
+  </div>
+
+  <h4 class="fw-bold py-2 text-center">Glisser le(s) document(s) ici</h4>
+  <p class="fw-bold py-1 text-center">ou</p>
+  <div class=" d-flex justify-content-center py-1">
+  <div class="button-wrapper">
+    <span class="label" >
+      Pièce jointe
+    </span>
+      <input  (change)="readUrl($event)" required type="file" name="upload" id="upload" class="upload-box" placeholder="Pièce jointe"  >
+  </div>
+</div>
+</div>
+</section>
+
+
+<section *ngIf="BinaryFile">
+  <div class="d-flex justify-content-end ">
+    <a (click)=" onCancel()"><img src="./../../../assets/error.png" class="icon-end"></a>
+  </div>
+  <div class="file-input-wrapper">
+    <button class="btn-file-input"><img src="./assets/file.png"></button>
+    <input type="file" name="file" (change)="onClickUploadDocument($event)" required/>
+  </div>
+
+<h4 class="fw-bold py-2 text-center">Glisser le(s) document(s) ici</h4>
+<div class="text-center">
+  <input type="file" id="uploadFile" style="display: none" (change)='onClickUploadDocument($event)' multiple>
+  <label for="uploadFile"  class="btn btn-primary">Pièce jointe</label>
+  <br>
+  <br>
+  <h4>liste de documents</h4>
+
+  <div class="d-flex justify-content-center border border-warning rounded" style="height: 4rem;">
+    <ul class="collapse show nav flex-column ms-2 mt-3" *ngFor="let file of files">
+      <li class="w-100 mt-1">
+        <span class="border border-warning bg-warning rounded p-2 mt-1"> {{file.name}}</span>
+      </li>
+    </ul>
+  </div>
+
+</div>
+<br>
+<br>
+<div class="d-flex justify-content-center">
+
+  <button mat-button  mat-dialog-close="true" class="annuler-btn" >Annuler</button>
+   &nbsp;
+   &nbsp;
+   &nbsp;
+   &nbsp;
+   &nbsp;
+  <button mat-button  (click)="onClosePopup()" class="ok-btn"> Ok
+  </button>
+
+  </div>
+</section>
+
+

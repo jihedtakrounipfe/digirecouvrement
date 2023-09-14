@@ -1,0 +1,106 @@
+<div class="pb-3 px-5">
+<div class="d-flex justify-content-between pb-3">
+  <div>
+    <mat-card-title>Ajout des frais</mat-card-title>
+  </div>
+  <div>
+   <button type="button"  mat-button class="frais-btn">Enregistrer</button>
+  </div>
+</div>
+<div>
+  <mat-card>
+    <div class="d-flex justify-content-between">
+      <div class="col-md-3" *ngIf="frais">
+            <div class="pt-2">
+              <mat-card-subtitle class="py-1 fw-bold text-dark"
+                >Engagement</mat-card-subtitle
+              >
+              <div class="py-1">
+                <mat-label>Montant</mat-label>
+              </div>
+              <div >
+                <button mat-raised-button disabled  class="w-100 fw-bold">
+                  <!-- {{frais}} --> {{montant}} TND
+                </button>
+              </div>
+            </div>
+            <br />
+            <div>
+              <mat-card-subtitle class="py-1 fw-bold text-dark"
+                >Créance</mat-card-subtitle
+              >
+              <div class="py-1">
+                <mat-label>Créance</mat-label>
+              </div>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select name="frais" class="w-20" placeholder="Créance">
+                  <mat-option *ngFor="let s of select" [value]="s">
+                    {{ s }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between py-1">
+      <div>
+        <mat-card-subtitle class="mt-1 fw-bold text-dark">État des frais</mat-card-subtitle>
+      </div>
+      <div>
+       <button type="button"  mat-button class="new-btn" (click)="openDialog()">Ajouter frais</button>
+      </div>
+    </div>
+    <div class=" rounded border border-secondary">
+    <mat-table #table [dataSource]="frais" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="fraisprecont">
+        <mat-header-cell *matHeaderCellDef>Référence du PV/Facture</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.referencePvFacture }} </mat-cell>
+    </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="naturefrais">
+        <mat-header-cell *matHeaderCellDef>Nature des frais</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.naturefrais }} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="typefrais">
+        <mat-header-cell *matHeaderCellDef>Type de frais</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.typefrais }} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="tier">
+          <mat-header-cell *matHeaderCellDef>Tiers</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.tiers}} </mat-cell>
+      </ng-container>
+
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="montants">
+        <mat-header-cell *matHeaderCellDef>Montant</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.montants }} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="datedeffdesir">
+        <mat-header-cell *matHeaderCellDef>Date d’effet des IR</mat-header-cell>
+<<<<<<< HEAD
+        <mat-cell *matCellDef="let element"> {{ element.datedeffdesir | date: 'dd/MM/yyyy'}} </mat-cell>
+=======
+        <mat-cell *matCellDef="let element"> {{ element.datedeffdesir | date: 'dd/MM/yyyy' }} </mat-cell>
+>>>>>>> 401d2bdbf66ad29e6c0cd8051f483da85ca7da2c
+      </ng-container>
+
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  </mat-card>
+
+</div>
+</div>

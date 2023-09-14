@@ -1,0 +1,24 @@
+::ng-deep .adf-login-content{
+  background-image:none !important;
+}
+::ng-deep.adf-img-logo .g-star-inserted{
+  display: none !important;
+}
+::ng-deep.mat-card-actions {
+  display: none !important;
+}
+::ng-deep.mat-card-header {
+  display: none !important;
+  content: "login";
+  text-align: center;
+}
+::ng-deep.adf-copyright {
+  display: none !important;
+}
+::ng-deep.adf-login-card-wide::before {
+  padding-top: 51px !important;
+  content: "Login" !important;
+  font-size: 35px !important;
+  margin-left: 35% !important;
+  text-align: center !important;
+}

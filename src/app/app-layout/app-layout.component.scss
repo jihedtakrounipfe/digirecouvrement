@@ -1,0 +1,49 @@
+adf-sidenav-layout {
+    height: 100%;
+}
+
+::ng-deep mat-sidenav {
+    background:#073D7E !important ;
+}
+
+::ng-deep .adf-app-logo {
+    display: none;
+}
+
+::ng-deep  .mat-toolbar-single-row {
+    background-color: white !important;
+    color: black  !important;
+}
+::ng-deep   .adf-menu-icon .mat-icon {
+    font-size: 29px;
+    padding: 0 5px 0 0;
+    color: black;
+    display:none;
+}
+::ng-deep  .mat-list-item  .mat-list-icon {
+
+    color: white;
+}
+::ng-deep .mat-list-base .mat-list-item {
+
+    color: white;
+}
+::ng-deep .mat-menu-panel {
+  max-width: 400px !important;
+  min-width: 350px !important;
+}
+.notif-btn {
+  background-color: #1170C4;
+  border: none;
+  color: white;
+  padding: 0px 20px 0px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  border-radius: 12px;
+}
+.heigt-menu{
+  height: 210px;
+}

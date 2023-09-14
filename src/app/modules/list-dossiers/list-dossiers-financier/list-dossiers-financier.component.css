@@ -1,0 +1,27 @@
+.frais-btn{
+  padding: 0px 20px;
+  font-size: 11px;
+  color:#FFFFFF;
+  background-color: #1170C4;
+}
+.versement-btn{
+    border: 1px solid #1170C4;
+    padding: 0 15px !important;
+    line-height: 34px !important;
+    color: #1170C4 !important;
+    width: 100% !important;
+    background: #fff !important;
+}
+.disable {
+  color: #fff;
+  background: #1170C4;
+}
+.enable {
+  color: #fff;
+  background: #ccc;
+  pointer-events:none;
+}
+
+.mat-column-nomDossier {
+  flex: 0 0 28%;
+}

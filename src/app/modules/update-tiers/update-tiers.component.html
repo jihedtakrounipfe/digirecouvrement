@@ -1,0 +1,164 @@
+<div class="px-3">
+
+  <div class="navbar pb-3">
+    <div class="container-fluid">
+      <div class="d-inline-block mb-2 text-dark mt-2 ">
+        <mat-card-title >{{TierFirstName}} {{TierLastName}}</mat-card-title>
+      </div>
+      <div class="d-flex">
+        <div class="d-inline-block mb-2 text-dark px-2  ">
+          <button mat-button  type="submit" (click)="save()" class="save-btn">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-card>
+      <form style="line-height: 5px;" class="row" [formGroup]="Update_Tiers_Form" >
+          <mat-card-subtitle class="py-4 text-dark fw-bold ">Informations génerales</mat-card-subtitle >
+          <div class="row py-2">
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">Nom</label>
+                <div class="card">
+                  <div class="card-body bg-card text-center">
+                    {{TierFirstName}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">Prénom</label>
+                <div class="card">
+                  <div class="card-body bg-card text-center">
+                    {{TierLastName}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">CIN</label>
+                <div class="card">
+                  <div class="card-body bg-card text-center">
+                    {{TierCin}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">Adresse</label>
+              <mat-form-field appearance='outline' class="w-100" >
+                <input matInput placeholder="Adresse" type="text" formControlName="adresse">
+                <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+              </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3 d-flex justify-content-between ">
+
+                <div class="col-md-6 px-1 ">
+                  <label class=" fw-bold pb-2 fnt-11">Code postale</label>
+                <mat-form-field appearance='outline' class="w-100" >
+                  <input matInput placeholder="Code postale" type="text" formControlName="codePostale" (keypress)="keyPress($event)">
+                  <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+                </mat-form-field>
+                </div>
+
+
+                <div class="col-md-6 px-1">
+                  <label class=" fw-bold pb-2 fnt-11">Ville</label>
+                <mat-form-field appearance='outline' class="w-100" >
+                  <input matInput placeholder="Ville" type="text" formControlName="ville">
+                  <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+                </mat-form-field>
+                </div>
+
+              </div>
+
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">Gouvernorat</label>
+              <mat-form-field appearance='outline' class="w-100" >
+                <input matInput placeholder="Gouvernorat" type="text" formControlName="gouvernorat">
+                <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+              </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">Fax</label>
+                <mat-form-field appearance='outline' class="w-100" >
+                <input matInput placeholder="Fax" type="text" formControlName="numeroFax" (keypress)="keyPress($event)">
+                <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+               </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">Numéro de Téléphone Fixe</label>
+                <mat-form-field appearance='outline' class="w-100" >
+                <input matInput placeholder="Fax" type="text" formControlName="numeroFix" (keypress)="keyPress($event)">
+                <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+               </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group ">
+                <label class=" fw-bold pb-2 fnt-11">Numéro de Téléphone</label>
+                <div class="d-inline-block text-dark w-100 mt-1">
+                  <div [formGroup]="form">
+                    <div class="editor-tag" (click)="focusTagInput()">
+                      <span class="tag-item" *ngFor="let tag of tags">
+                        {{tag}}
+                        <span class="remove-tag" (click)="removeTag(tag)">×</span>
+                      </span>
+                            <input
+                            placeholder="Telephone"
+                            #tagInput type="text"
+                            class="input-tag"
+                            (keyup)="onKeyUp($event)"
+                            formControlName="tag"
+                            (keypress)="keyPress($event)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="py-2 px-1 position-absolute">
+                <div class="alert alert-primary " role="alert" *ngIf="phoneValidationText">
+                    <p>NB: Veuillez vérifier que le numéro téléphone</p>
+                    <p>contient seulement 8 chiffres</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div>
+                <label class=" fw-bold pb-2 fnt-11">E-mail</label>
+              <mat-form-field appearance='outline' class="w-100" >
+                <input matInput placeholder="E-mail" type="text" formControlName="email">
+                <mat-icon matSuffix color="primary">mode_edit</mat-icon>
+              </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label class=" fw-bold pb-2 fnt-11">Type de tiers</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-select placeholder="Type de tiers" formControlName="type">
+                  <mat-option *ngFor="let g of tiers" [value]="g" type="text" >
+                    {{ g }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+      </form>
+  </mat-card>
+</div>
+

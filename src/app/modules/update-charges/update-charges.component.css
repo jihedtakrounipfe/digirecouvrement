@@ -1,0 +1,42 @@
+
+::ng-deep .adf-container-full-width {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  }
+.py-6 {
+   padding-top: 4rem!important;
+  padding-bottom: 3rem!important;
+}
+.f-right{
+  float: right !important;
+}
+.bg-gray{
+  background-color: #EAECEF;
+}
+.save-btn{
+  border: 1px solid #1170C4;
+  padding: 0 10px !important;
+  line-height: 34px !important;
+  color: #1170C4 !important;
+  width: 100% !important;
+  background: #fff !important;
+}
+
+.fnt-11{
+  font-size: 11px;
+}
+.bg-card{
+  background-color:#ccc;
+}
+.margin-top{
+ margin-top: 31px;
+}
+.card {
+  border-radius: 4px !important;
+}
+.card-body {
+  padding: 8px !important;
+  border-radius: 4px!important;
+}
+

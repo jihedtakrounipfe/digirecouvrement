@@ -1,0 +1,28 @@
+::ng-deep .adf-container-full-width {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.frais-btn{
+  padding: 0px 15px 0px 15px;
+  font-size: 11px;
+  color:#FFFFFF;
+  background-color: #1170C4;
+}
+.border-secondary {
+  border-color: #dee2e6!important;
+}
+.new-btn{
+  border: 1px solid #1170C4;
+  padding: 0 10px !important;
+  line-height: 34px !important;
+  color: #1170C4 !important;
+  width: 189px;
+}
+.action-icon{
+padding-top: 2px;
+ font-size: 25px;
+}
+.action-icon:hover{
+  transform: scale(1.2);
+}

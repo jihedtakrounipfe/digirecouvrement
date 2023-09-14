@@ -1,0 +1,79 @@
+
+.fnt-10{
+  font-size: 10px;
+}
+
+.staus-btn{
+  padding: 0px 5px;
+  font-size: 10px;
+  color:#FFFFFF;
+  min-width:80px;
+}
+.consulter-btn{
+  color: #FFFFFF !important;
+  background-color:#1170C4!important;
+}
+::ng-deep .adf-container-full-width {
+  padding-top: 35px;
+  padding-left: 20px;
+  padding-right: 20px;
+  }
+
+.annuler-btn{
+  border: 1px solid #1170C4;
+  padding: 0 10px !important;
+  line-height: 34px !important;
+  color: #1170C4 !important;
+  width: 189px;
+}
+.ok-btn{
+  border: 1px solid #1170C4;
+  padding: 0 10px !important;
+  line-height: 34px !important;
+  color: #fff !important;
+  width: 189px;
+  background-color:#1170C4;
+}
+
+.mat-column-select{
+  flex: 0 0 7%;
+}
+.mat-column-ville{
+  flex: 0 0 7%;
+}
+.mat-column-disponibilite{
+  flex: 0 0 12%;
+}
+.mat-column-id{
+  flex: 0 0 6%;
+}
+/*
+
+.mat-column-lastName{
+  flex: 0 0 9%;
+}
+.mat-column-firstName{
+  flex: 0 0 9%;
+}
+.mat-column-ville{
+  flex: 0 0 7%;
+}
+.mat-column-adresse{
+  flex: 0 0 13%;
+}
+.mat-column-telephone{
+  flex: 0 0 10%;
+}
+.mat-column-gouvernorat{
+  flex: 0 0 9%;
+}
+
+.mat-column-disponibilite{
+  flex: 0 0 13%;
+}
+.mat-column-dateDeLaProchaineDisponibilite{
+  flex: 0 0 13%;
+}
+.mat-column-modifier{
+  flex: 0 0 10%;
+} */

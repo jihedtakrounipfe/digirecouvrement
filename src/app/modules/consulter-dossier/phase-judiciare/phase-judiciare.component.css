@@ -1,0 +1,19 @@
+.icon{
+  width:25px;
+  height:25px;
+}
+.border-secondary {
+  border-color: #dee2e6!important;
+}
+.mat-column-select{
+  flex: 0 0 8%;
+}
+.mat-cell{
+  font-size: 9px;
+}
+.mat-header-cell{
+  font-size: 9px;
+}
+::ng-deep .mat-paginator-container {
+  height: 0px!important;
+}

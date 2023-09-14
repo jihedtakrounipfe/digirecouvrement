@@ -1,0 +1,66 @@
+::ng-deep .adf-container-full-width {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  }
+
+::ng-deep .h-input{
+  height:35px;
+  background-color: #EAECEF;
+}
+.w-card{
+  width:190px !important;
+}
+.w-card-2{
+  width:230px !important;
+}
+::ng-deep .mat-grid-tile {
+  display: block !important;
+  position: absolute;
+  overflow: hidden;
+}
+.icon{
+  width:25px;
+  height:25px;
+}
+
+::ng-deep.mat-form-field-infix {
+  width: 150px !important;
+}
+.col-md-3-5 {
+  flex: 0 0 auto;
+  width: 33%;
+}
+.mt-22{
+  margin-top: -22px !important;
+}
+
+.enable {
+  border: 1px solid #1170C4;
+  padding: 0 5px !important;
+  line-height: 34px !important;
+  color: #1170C4 !important;
+  width: 100% !important;
+  background: #fff !important;
+}
+
+.disable {
+  color: #fff !important;
+  padding: 0 5px !important;
+  pointer-events: none !important;
+  line-height: 34px !important;
+  background: #ccc !important;
+  width: 100% !important;
+}
+
+.signaler-btn{
+  border: 1px solid #1170C4;
+  padding: 0px 5px 0px 5px !important;
+  line-height: 34px !important;
+  color: #fff !important;
+  background-color:#1170C4 !important;
+  width: 100% !important;
+}
+
+
+

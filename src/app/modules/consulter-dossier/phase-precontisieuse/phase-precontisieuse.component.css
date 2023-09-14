@@ -1,0 +1,40 @@
+.mt-22{
+  margin-top: -22px !important;
+}
+.border-secondary {
+  border-color: #dee2e6!important;
+}
+.icon{
+  width:25px;
+  height:25px;
+}
+::ng-deep .h-input{
+  height:35px;
+  background-color: #EAECEF;
+}
+.w-card{
+  width:190px !important;
+}
+.w-card-2{
+  width:230px !important;
+}
+
+
+.mat-column-fraisprecont{
+  flex: 0 0 19%;
+}
+.mat-column-hypthequebanques{
+  flex: 0 0 12%;
+}
+.mat-column-Rang{
+  flex: 0 0 5%;
+}
+.mat-column-select{
+  flex: 0 0 8%;
+}
+.mat-cell{
+  font-size: 9px;
+}
+.mat-header-cell{
+  font-size: 9px;
+}

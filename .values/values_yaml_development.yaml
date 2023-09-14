@@ -1,0 +1,39 @@
+rbac:
+  enabled: false
+
+podLabels:
+  createdfor: addinn
+
+env:
+  - name: API_URL
+    value: '.addinn-group.com/'
+
+service:
+  internalPort: 80
+  externalPort: 8080
+
+ingress:
+  enabled: true
+  issuer: letsencrypt-issuer
+  externaldns: enabled
+  className: public
+
+
+livenessProbe: {}
+readinessProbe: {}
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 10m
+    memory: 128Mi
+nodeSelector: {}
+metrics:
+  enabled: true
+  port: 80
+
+
+
+dockerSecret:
+  config: '{"auths":{"reg.addinn-group.com": {"auth": "YWRtaW46ZHN3NEF1RUdLVQ=="},"https://index.docker.io/v1/":{"auth":"dzZkaW86NzcxNGYzNjMtMzhiNS00MGM0LWJmNTktZmQzZjVlNTllMjE3"},"reg-ext.stradaworld.com":{"auth":"dzZkOm0zOHdzQXZLRmtnQnA4dFA0aDlm"},"reg.stradaworld.com":{"auth":"dzZkOm0zOHdzQXZLRmtnQnA4dFA0aDlm"}}}'

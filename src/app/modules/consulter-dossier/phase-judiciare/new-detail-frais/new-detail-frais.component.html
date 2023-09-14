@@ -1,0 +1,94 @@
+<section>
+  <form [formGroup]="New_Detail_Form">
+    <div class="d-flex justify-content-between">
+
+      <div class="form-group col-md-1">
+        <label class="title">Nom</label>
+        <div class="d-inline-block mb-2 text-dark mt-2 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Nom"
+              type="text"
+              formControlName="nom"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group col-md-1">
+        <label class="title">Prénom</label>
+        <div class="d-inline-block mb-2 text-dark mt-2 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Prénom"
+              type="text"
+              formControlName="prenom"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label class="title">Type de tiers</label>
+        <div class="d-inline-block mb-2 text-dark mt-2 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Type de tiers" formControlName="typedeTiers">
+              <mat-option *ngFor="let docs of echeancier" [value]="docs">{{
+                docs
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      <div class="form-group col-md-2">
+        <label class="title">Facturation</label>
+        <div class="d-inline-block mb-2 text-dark mt-2 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Facturation"
+              type="text"
+              formControlName="facturation"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label class="title">Paiement</label>
+        <div class="d-inline-block mb-2 text-dark mt-2 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <input
+              matInput
+              placeholder="Paiement"
+              type="text"
+              formControlName="paiment"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group col-md-2">
+        <label class="title">Type de saisine</label>
+        <div class="d-inline-block mb-2 text-dark mt-2 w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Type de saisine" formControlName="typedeSaisine">
+              <mat-option *ngFor="let docs of echeancier" [value]="docs">{{
+                docs
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="col-md-2 d-flex justify-content-center">
+        <a (click)="save()" type="submit"
+          ><img src="./assets/plus.png" class="icon"
+        /></a>
+      </div>
+    </div>
+  </form>
+</section>

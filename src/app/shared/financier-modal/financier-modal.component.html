@@ -1,0 +1,220 @@
+
+<div class="d-flex justify-content-between">
+  <mat-card-subtitle class="pt-2 pb-2 fw-bold text-dark">{{ title_label}}</mat-card-subtitle>
+  <!-- <mat-button class="pointer" (click)="openModal()"  matTooltip="Déposer un fichier"><mat-icon class="icon-blue-color" >cloud_upload</mat-icon></mat-button> -->
+</div>
+
+  <form *ngIf="frais" [formGroup]="frais_Form">
+  <div>
+    <div class="d-flex justify-content-between">
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Nature des {{sub_title_label}}</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select name="countryReactiveVaraible" placeholder="Nature des frais" formControlName="naturefrais">
+              <mat-option *ngFor="let s of nature" [value]="s">
+                {{ s }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Type des {{sub_title_label}}</label>
+          <!-- <mat-card class="h-input mt-2"><p class="mt-label">Type des frais</p></mat-card> -->
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select name="countryReactiveVaraible" placeholder="Type des frais" formControlName="typefrais" [disabled]="phase == 'Amiable'">
+              <mat-option *ngFor="let s of typeFrais" [value]="s">
+                {{ s }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Tiers</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select name="countryReactiveVaraible" placeholder="Tiers"  formControlName="tiers">
+                <mat-option *ngFor="let s of tiers" [value]="s">
+                  {{ s }}
+                </mat-option>
+              </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Référence du PV/Facture</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput placeholder="Référence du PV/Facture" formControlName="referencePvFacture"/>
+          </mat-form-field>
+
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between">
+          <div class="col-md-6">
+            <div class="px-2">
+              <label>HT</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="HT" formControlName="HT" type="text" (keypress)="keyPress($event)"/>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="px-2">
+              <label>TVA</label>
+              <mat-form-field appearance="outline" class="w-100">
+                <input matInput placeholder="TVA" formControlName="TVA" type="text" (keypress)="keyPress($event)"/>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Débours</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput placeholder="Débours" formControlName="debours" type="text" (keypress)="keyPress($event)"/>
+          </mat-form-field>
+        </div>
+      </div>
+
+    </div>
+    <div class="d-flex justify-content-between">
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Montant</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput placeholder="Montant" formControlName="montants" type="text" (keypress)="keyPress($event)"/>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="px-2">
+          <label>Date d’effet des IR</label>
+          <!-- <mat-card class="h-input mt-2"><p class="mt-label">Date d’effet des IR</p></mat-card> -->
+          <mat-form-field appearance="outline" class="w-100">
+            <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR"
+              formControlName="datedeffdesir" placeholder="Date d’effet des IR" [disabled]="phase == 'Amiable'">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form *ngIf="versement"  [formGroup]="Versement_Form">
+  <div class="alert alert-danger" role="alert" *ngIf="error">
+    {{erreur}}
+  </div>
+
+  <div class="d-flex">
+    <div class="col-md-6">
+      <div class="px-2">
+        <label>Référence de versement</label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput formControlName="referenceVersement" placeholder="Référence de versement" pattern="[A-Z0-9]*"/>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="px-2">
+        <label>Date</label>
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [min]="minDate" [matDatepicker]="picker" placeholder="Date"
+            formControlName="dateVersement" placeholder="Date">
+          <mat-datepicker-toggle matSuffix  [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker   #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex">
+
+    <div class="col-md-6">
+      <div class="px-2">
+        <label>Mode de règlement</label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Mode de règlement" formControlName="modeReglement">
+            <mat-option *ngFor="let s of mode" [value]="s">
+              {{s}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="px-2">
+        <label>Montant de versement</label>
+
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="Montant de versement" formControlName="montantVersement" type="text" (keypress)="keyPress($event)" />
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex">
+    <div class="col-md-6">
+      <div class="px-2">
+        <label>Type de versement</label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Type de versement" formControlName="typeVersement">
+            <mat-option *ngFor="let s of type" [value]="s">
+              {{s}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="px-2">
+        <label>Affectation</label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Affectation" formControlName="affectaion">
+            <mat-option *ngFor="let s of affectation" [value]="s">{{s}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="d-flex justify-content-center" *ngIf="versement">
+  <button mat-fab color="accent" aria-label="Déposer un fichier"  matTooltip="Déposer un fichier" (click)="openModal()">
+    <mat-icon>cloud_upload</mat-icon>
+  </button>
+</div>
+<br>
+<br>
+  <div class="d-flex justify-content-center pt-4">
+
+      <div class="px-4">
+        <button mat-button class="annuler-btn" (click)="colsePopup()">{{button_label_1}}</button>
+      </div>
+
+      <div class="px-4">
+
+      <div *ngIf="versement">
+        <button mat-button class="ok-btn" (click)="OnSubmitVersement()">{{button_label_2}}</button>
+      </div>
+
+      <div *ngIf="frais">
+        <button mat-button class="ok-btn" (click)="OnSubmitFrais()"> {{button_label_2}}</button>
+      </div>
+
+      </div>
+
+  </div>

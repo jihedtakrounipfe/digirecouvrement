@@ -1,0 +1,416 @@
+
+  <div style="line-height: 50px;">
+
+    <mat-card >
+    <h4 class="fw-bold">Informations Generales</h4>
+      <div class="row" *ngIf="precontisieuse">
+        <div class="col-md-6">
+          <mat-label class="pb-4 fw-bold fnt-10">Nature de la créance</mat-label>
+          <mat-card class="h-input"><p class="mt-22">{{precontisieuse.natureDeLaCreance}}</p></mat-card>
+        </div>
+
+        <div class="col-md-6">
+          <mat-label class="pb-4 fw-bold fnt-10">Garant</mat-label>
+          <mat-card class="h-input"><p class="mt-22">{{precontisieuse.garant}}</p></mat-card>
+        </div>
+      </div>
+    </mat-card>
+    <div class="form-row">
+      <div [hidden]="session !== 'GROUP_DIRECTEURS'"><mat-card-subtitle class="py-2 fw-bold text-dark mt-2" >Détails de la créance</mat-card-subtitle></div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+        <div class="form-group d-flex justify-content-between" >
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Détails de la créance</mat-card-subtitle>
+          <div class="d-flex">
+            <span  class="px-2"><a (click)="hide()"><img src="./assets/plus.png" class="icon"></a></span>
+            <span  class="px-2"><a (click)="show()"><img src="./assets/check.png" class="icon"></a></span>
+            <span  class="px-2"><a (click)="update()"><img src="./assets/pencil.png" class="icon"></a></span>
+          </div>
+        </div>
+      </div>
+
+      <mat-card *ngIf="list">
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable">
+        <div class=" rounded border border-secondary">
+        <mat-table #table [dataSource]="creance" matSort>
+
+          <!-- select Column -->
+          <ng-container matColumnDef="select">
+          <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+          <mat-cell *matCellDef="let creance">
+          <mat-checkbox (click)="selectCreance(creance.creances)"></mat-checkbox>
+          </mat-cell>
+          </ng-container>
+
+          <!-- creances Column -->
+          <ng-container matColumnDef="creances">
+           <mat-header-cell *matHeaderCellDef> Créances </mat-header-cell>
+           <mat-cell *matCellDef="let creance">{{creance.creances}} </mat-cell>
+          </ng-container>
+
+          <!-- montant  Column -->
+          <ng-container matColumnDef="montant">
+           <mat-header-cell *matHeaderCellDef> Montant </mat-header-cell>
+           <mat-cell *matCellDef="let creance"> {{creance.montant}} </mat-cell>
+          </ng-container>
+
+          <!-- nature Column -->
+          <ng-container matColumnDef="nature">
+           <mat-header-cell *matHeaderCellDef>  Nature</mat-header-cell>
+           <mat-cell *matCellDef="let creance"> {{creance.nature}} </mat-cell>
+          </ng-container>
+
+          <!-- nature Column -->
+          <ng-container matColumnDef="datedeffdesir">
+            <mat-header-cell *matHeaderCellDef>  Date d’effet des IR</mat-header-cell>
+            <mat-cell *matCellDef="let creance"> {{creance.datedeffdesir | date: 'dd/MM/yyyy'}} </mat-cell>
+           </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayeCreancesTab"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayeCreancesTab;"></mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[1,2,3,4,5]"></mat-paginator>
+      </div>
+    </div>
+      </mat-card>
+      <mat-card *ngIf="add">
+       <app-new-creance (reloadData)="Reload($event)"></app-new-creance>
+      </mat-card>
+      <mat-card *ngIf="updateForm">
+        <app-update-creance (reloadData)="Reload($event)"></app-update-creance>
+       </mat-card>
+    </div>
+    <div class="form-row">
+      <div  [hidden]="session !== 'GROUP_DIRECTEURS'"><mat-card-subtitle class="py-2 fw-bold text-dark mt-2">Détails de vrsement</mat-card-subtitle></div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+        <div class="form-group d-flex justify-content-between" >
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Détails de vrsement</mat-card-subtitle>
+          <div class="d-flex">
+          <span  class="px-2"><a (click)="hide1()"><img src="./../../assets/plus.png" class="icon"></a></span>
+          <span  class="px-2"><a (click)="show1()"><img src="./../../assets/check.png" class="icon"></a></span>
+          <span  class="px-2"><a (click)="update1()"><img src="./../../assets/pencil.png" class="icon"></a></span>
+          </div>
+        </div>
+      </div>
+
+      <mat-card *ngIf="list1">
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable">
+        <div class=" rounded border border-secondary">
+        <mat-table #table [dataSource]="versement" matSort>
+
+          <!-- select Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell *matCellDef="let versement">
+            <mat-checkbox (click)="selectVersement(versement.nomVersement)"></mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+           <!-- Position Column -->
+        <ng-container matColumnDef="nomVersement">
+          <mat-header-cell *matHeaderCellDef> Nom Versement </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.nomVersement }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="dateVersement">
+          <mat-header-cell *matHeaderCellDef> Date de Versements </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.dateVersement | date: 'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+         <!-- Name Column -->
+         <ng-container matColumnDef="montantVersement">
+          <mat-header-cell *matHeaderCellDef> Montant Versement </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.montantVersement }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="modeReglement">
+          <mat-header-cell *matHeaderCellDef> Mode de reglement </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.modeReglement }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="affectaion">
+          <mat-header-cell *matHeaderCellDef> Affectaion </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.affectaion }} </mat-cell>
+        </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayVrsementTab"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayVrsementTab;"></mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[1,2,3,4,5]"></mat-paginator>
+      </div>
+      </div>
+      </mat-card>
+      <mat-card *ngIf="add1" class="d-flex justify-content-between">
+      <app-new-versement (reloadData)="Reload($event)"></app-new-versement>
+      </mat-card>
+      <mat-card *ngIf="updateForm1">
+        <app-update-versement (reloadData)="Reload($event)"></app-update-versement>
+      </mat-card>
+    </div>
+
+    <div class="form-row">
+      <div  [hidden]="session !== 'GROUP_DIRECTEURS'">
+        <mat-card-subtitle class="py-2 fw-bold text-dark mt-2">Détails des frais</mat-card-subtitle>
+      </div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+        <div class="form-group d-flex justify-content-between">
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Détails des frais</mat-card-subtitle>
+          <div class="d-flex">
+            <span class="px-2"><a (click)="hide2()"><img src="./assets/plus.png" class="icon"></a></span>
+            <span class="px-2"><a (click)="show2()"><img src="./assets/check.png" class="icon"></a></span>
+            <span class="px-2"><a (click)="update2()"><img src="./assets/pencil.png" class="icon"></a></span>
+          </div>
+        </div>
+      </div>
+
+      <mat-card *ngIf="list2">
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable">
+        <div class=" rounded border border-secondary">
+        <mat-table #table [dataSource]="frais" matSort>
+
+
+          <!-- select Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let frais">
+            <mat-checkbox  (click)="selectFrais(frais.fraisprecont)"></mat-checkbox>
+            </mat-cell>
+          </ng-container>
+
+           <!-- Name Column -->
+    <ng-container matColumnDef="fraisprecont">
+      <mat-header-cell *matHeaderCellDef> Réference de frais </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.fraisprecont }} </mat-cell>
+  </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="naturefrais">
+      <mat-header-cell *matHeaderCellDef> Frais </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.naturefrais }} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="typefrais">
+      <mat-header-cell *matHeaderCellDef> Type de frais </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.typefrais }} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="tier">
+        <mat-header-cell *matHeaderCellDef> Nom de tier </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{ element.tiers}} </mat-cell>
+    </ng-container>
+
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="montants">
+      <mat-header-cell *matHeaderCellDef> Montant </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.montant }} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="datedeffdesir">
+      <mat-header-cell *matHeaderCellDef> Datede frais </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.datedeffdesir | date: 'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+
+
+        <mat-header-row *matHeaderRowDef="displayFraisTab"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayFraisTab;"></mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[1,2,3,4,5]"></mat-paginator>
+      </div>
+     </div>
+      </mat-card>
+      <mat-card *ngIf="add2">
+        <app-new-frais (reloadData)="Reload($event)"></app-new-frais>
+      </mat-card>
+      <mat-card *ngIf="updateForm2">
+        <app-update-frais (reloadData)="Reload($event)"></app-update-frais>
+      </mat-card>
+    </div>
+    <div class="form-row">
+
+      <div [hidden]="session !== 'GROUP_DIRECTEURS'">
+        <mat-card-subtitle class="py-2 fw-bold text-dark mt-2" >Garanties et Enquétes</mat-card-subtitle>
+      </div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+        <div class="form-group d-flex justify-content-between" >
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Garanties et Enquétes</mat-card-subtitle>
+          <div class="d-flex">
+          <span  class="px-2"><a (click)="hide3()"><img src="./../../assets/plus.png" class="icon"></a></span>
+          <span  class="px-2"><a (click)="show3()"><img src="./../../assets/check.png" class="icon"></a></span>
+          <span  class="px-2"><a (click)="update3()"><img src="./../../assets/pencil.png" class="icon"></a></span>
+          </div>
+        </div>
+      </div>
+
+      <mat-card *ngIf="list3">
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable">
+        <div class=" rounded border border-secondary">
+        <mat-table #table [dataSource]="garanties" matSort>
+
+          <!-- select Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let garanties">
+            <mat-checkbox  (click)="selectGarantie(garanties.nomgarantie)"></mat-checkbox>
+           </mat-cell>
+          </ng-container>
+
+          <!-- periodicite Column -->
+          <ng-container matColumnDef="typeGar">
+           <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.typeGar}}</mat-cell>
+          </ng-container>
+
+          <!-- montant  Column -->
+          <ng-container matColumnDef="natureHypotheque">
+           <mat-header-cell *matHeaderCellDef>Nature HY</mat-header-cell>
+           <mat-cell *matCellDef="let garanties"> {{garanties.natureHypotheque}}</mat-cell>
+          </ng-container>
+
+          <!-- date Premiere Echiancier Column -->
+          <ng-container matColumnDef="Rang">
+           <mat-header-cell *matHeaderCellDef>Rang </mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.Rang}}</mat-cell>
+          </ng-container>
+
+          <!-- periodicite Column -->
+          <ng-container matColumnDef="immatriculation">
+           <mat-header-cell *matHeaderCellDef>Immatriculation</mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.immatriculation}}</mat-cell>
+          </ng-container>
+
+          <!-- montant  Column -->
+          <ng-container matColumnDef="dateFinDeLHypotheque">
+           <mat-header-cell *matHeaderCellDef>Date Fin HY</mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.dateFinDeLHypotheque}}</mat-cell>
+          </ng-container>
+
+          <!-- date Premiere Echiancier Column -->
+          <ng-container matColumnDef="montantDeLHypotheque">
+           <mat-header-cell *matHeaderCellDef>Montant HY</mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.montantDeLHypotheque}}</mat-cell>
+          </ng-container>
+
+          <!-- periodicite Column -->
+          <ng-container matColumnDef="valeurEstimee">
+           <mat-header-cell *matHeaderCellDef>V Estimée</mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.valeurEstimee}}</mat-cell>
+          </ng-container>
+
+          <!-- montant  Column -->
+          <ng-container matColumnDef="hypthequebanques">
+           <mat-header-cell *matHeaderCellDef> HY Autre Banque</mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.hypthequebanques}}</mat-cell>
+          </ng-container>
+
+          <!-- date Premiere Echiancier Column -->
+          <ng-container matColumnDef="beneficiairehypotheque">
+           <mat-header-cell *matHeaderCellDef> Bénéficiaire </mat-header-cell>
+           <mat-cell *matCellDef="let garanties">{{garanties.beneficiairehypotheque}}</mat-cell>
+          </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayGarantiesTab"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayGarantiesTab;"></mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[1,2,3,4,5]"></mat-paginator>
+      </div>
+     </div>
+      </mat-card>
+      <mat-card *ngIf="add3">
+        <app-new-garantie (reloadData)="Reload($event)"></app-new-garantie>
+      </mat-card>
+      <mat-card *ngIf="updateForm3">
+        <app-update-garantie (reloadData)="Reload($event)"></app-update-garantie>
+      </mat-card>
+    </div>
+    <div class="form-row">
+
+      <div [hidden]="session !== 'GROUP_DIRECTEURS'">
+        <mat-card-subtitle class=" fw-bold text-dark mt-2" >Saisine des tiers</mat-card-subtitle>
+      </div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+        <div class="form-group d-flex justify-content-between">
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Saisine des tiers</mat-card-subtitle>
+          <div class="d-flex">
+          <span  class="px-2"><a (click)="hide4()"><img src="./../../assets/plus.png" class="icon"></a></span>
+          <span  class="px-2"><a (click)="show4()"><img src="./../../assets/check.png" class="icon"></a></span>
+          <span  class="px-2"><a (click)="update4()"><img src="./../../assets/pencil.png" class="icon"></a></span>
+          </div>
+        </div>
+      </div>
+
+      <mat-card *ngIf="list4">
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable">
+        <div class=" rounded border border-secondary">
+        <mat-table #table [dataSource]="saisine" matSort>
+
+          <!-- select Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+            <mat-cell *matCellDef="let saisine">
+            <mat-checkbox  (click)="selectSaisine(saisine.nomsaisine)"></mat-checkbox>
+           </mat-cell>
+          </ng-container>
+
+          <!-- periodicite Column -->
+          <ng-container matColumnDef="nomsaisine">
+           <mat-header-cell *matHeaderCellDef> Nom De Saisine</mat-header-cell>
+           <mat-cell *matCellDef="let saisine">{{saisine.nomsaisine}} </mat-cell>
+          </ng-container>
+
+          <!-- montant  Column -->
+          <ng-container matColumnDef="region">
+           <mat-header-cell *matHeaderCellDef> Region </mat-header-cell>
+           <mat-cell *matCellDef="let saisine"> {{saisine.region}} </mat-cell>
+          </ng-container>
+
+          <!-- date Premiere Echiancier Column -->
+          <ng-container matColumnDef="typeDeTiers">
+           <mat-header-cell *matHeaderCellDef>  Type De Tiers</mat-header-cell>
+           <mat-cell *matCellDef="let saisine"> {{saisine.typeDeTiers}} </mat-cell>
+          </ng-container>
+
+          <!-- date Premiere Echiancier Column -->
+          <ng-container matColumnDef="nomDeTiers">
+           <mat-header-cell *matHeaderCellDef>  Nom DeTiers</mat-header-cell>
+           <mat-cell *matCellDef="let saisine"> {{saisine.nomDeTiers}} </mat-cell>
+          </ng-container>
+
+          <!-- date Premiere Echiancier Column -->
+          <ng-container matColumnDef="piecejointe">
+           <mat-header-cell *matHeaderCellDef>  Piece jointe</mat-header-cell>
+           <mat-cell *matCellDef="let saisine"><a (click)="goToLink(saisine.piecejointe)"><img src="./assets/pdf-file.png"></a> </mat-cell>
+          </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displaySaisineTab"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displaySaisineTab;"></mat-row>
+
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[1,2,3,4,5]"></mat-paginator>
+      </div>
+    </div>
+      </mat-card>
+      <mat-card *ngIf="add4">
+        <app-new-saisine (reloadData)="Reload($event)"></app-new-saisine>
+      </mat-card>
+      <mat-card *ngIf="updateForm4">
+        <app-update-saisine (reloadData)="Reload($event)"></app-update-saisine>
+      </mat-card>
+    </div>
+  </div>
+

@@ -1,0 +1,285 @@
+<mat-card>
+
+  <div class="d-flex justify-content-between">
+  <mat-card-subtitle class="py-2 fw-bold text-dark">Informations generales</mat-card-subtitle>
+
+  <div [hidden]="session !== 'GROUP_CHARGES'">
+  <div class="d-flex justify-content-between" >
+
+  <div class="px-2" >  <mat-icon-button class="pointer" matTooltip="Envoyer une réclamation"><mat-icon class="icon-blue-color mt-1" (click)="openReclamationModal()"> border_color</mat-icon></mat-icon-button></div>
+
+  <span  *ngIf="TypeRelance == 'NotificationSerie'" class="d-flex justify-content-between">
+    <div [hidden]=" statutMessage == 'false'">
+      <div class="d-flex justify-content-between ">
+      <div class="px-1" [hidden]="statutMessage == 'false'">
+        <mat-icon-button class="pointer"  matTooltip="Envoyer un message"><mat-icon class="icon-blue-color" (click)="openSMSmodal()"> sms</mat-icon>
+        </mat-icon-button>
+      </div>
+      <span matTooltip="Nombre des messages"class="icon-button__badge pointer bg-success"  [hidden]="nombreMessageDeRappel == 0 ">{{nombreMessageDeRappel}}</span>
+      </div>
+    </div>
+    <div [hidden]=" statutAppel == 'false'">
+      <div class="d-flex justify-content-between ">
+      <div class="px-1" [hidden]="statutAppel == 'false'">
+        <mat-icon-button  class="pointer" matTooltip=" Appeler le débiteur">
+          <mat-icon class="icon-blue-color icon-width" (click)="openAppelModal()"> phone</mat-icon>
+        </mat-icon-button></div>
+      <span matTooltip="Nombre d'applels téléphoniques" class="icon-button__badge pointer bg-success"  [hidden]=" nombreAppel == 0">{{nombreAppel}}</span>
+      </div>
+    </div>
+  </span>
+
+  <span  *ngIf="TypeRelance == 'NotificationParallele'" class="d-flex justify-content-between">
+    <div [hidden]="statutMessage == 'false'">
+    <div class="d-flex justify-content-between mt-1">
+      <div  class="px-1">
+        <mat-icon-button class="pointer"  matTooltip="Envoyer un message">
+          <mat-icon class="icon-blue-color" (click)="openSMSmodal()"> sms</mat-icon>
+        </mat-icon-button>
+      </div>
+      <span matTooltip="Nombre des messages"class="icon-button__badge pointer bg-warning" [hidden]="nombreMessageDeRappel == 0">{{nombreMessageDeRappel}}</span>
+    </div>
+    </div>
+    <div [hidden]="statutAppel == 'false'">
+    <div class="d-flex justify-content-between px-3 mt-1" >
+      <div  class="px-0 " >
+        <mat-icon-button  class="pointer" matTooltip=" Appeler le débiteur">
+          <mat-icon class="icon-blue-color icon-width" (click)="openAppelModal()" > phone</mat-icon>
+        </mat-icon-button>
+      </div>
+      <span matTooltip="Nombre d'applels téléphoniques" class="icon-button__badge pointer bg-warning" [hidden]=" nombreAppel == 0">{{nombreAppel}}</span>
+    </div>
+    </div>
+  </span>
+
+  </div>
+  </div>
+  </div>
+
+    <div class="row " *ngIf="amiable">
+      <div class="col-md-4">
+        <div class="pb-4">
+          <mat-label class="pb-4 fw-bold fnt-10">Nom*</mat-label>
+          <mat-card class="h-input mt-2"><p class="mt-label">{{amiable.nom}}</p></mat-card>
+        </div>
+        <form [formGroup]="updateCode">
+        <div class="pb-2 mt-" [hidden]="session !== 'GROUP_DIRECTEURS'">
+          <label class="fw-bold fnt-10 mt-3">Code Postal*</label>
+          <mat-form-field appearance="outline" class="w-100">
+            <input [readonly]="isReadOnly" matInput placeholder="Code Postale" type="text" formControlName="codepostale" />
+          </mat-form-field>
+        </div>
+        <section class="pb-2" [hidden]="session !== 'GROUP_CHARGES'">
+          <div>
+            <label class="fw-bold fnt-10 mt-3"><span [hidden]="successCode">Code Postal*</span><span  *ngIf="successCode" class="px-2"><img src="./assets/success.png" class="image-width"><span class="px-1 text-success">Code postal modifié avec succès</span></span></label>
+              <div class="d-flex justify-content-between">
+                <div class="col-md-10" >
+                  <mat-form-field appearance="outline" class="w-100">
+                    <input [readonly]="isReadOnly" matInput placeholder="Code Postale" type="text" formControlName="codepostale" />
+                  </mat-form-field>
+                </div>
+                <div class="mt-1 col-md-2">
+                  <span class="px-2"> <button class="btn btn-outline-secondary" style="height: 40px;" type="submit" (click)="openCodeForm()"><mat-icon matSuffix class="icon-color px-1 mt-1">create</mat-icon ></button></span>
+                </div>
+              </div>
+          </div>
+          <div *ngIf="ShowCodeForm" style="position: absolute !important; width: 23rem;">
+            <mat-card>
+                <div class="justify-content-between d-flex">
+                <div class="form-group col-md-10 px-2">
+                  <label class="title"><p class="fw-bold fnt-10">Modifier le code postal</p></label>
+                    <mat-form-field appearance="outline" class="w-100">
+                      <mat-select placeholder="Codes postaux" formControlName="codepostale">
+                        <mat-option *ngFor="let c of ListCodes" [value]="c">{{c}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-md-2 d-flex justify-content-center mt-1 px-2">
+                  <a (click)="saveNewCode()" type="submit"
+                    ><img src="./assets/plus.png" class="code-icon"
+                  /></a>
+                </div>
+                </div>
+            </mat-card>
+            </div>
+        </section>
+        </form>
+        <div class="pb-5">
+          <mat-label class="pb-4 fw-bold fnt-10">Adresse</mat-label>
+          <mat-card class="h-input mt-2" style="position: static;"><p class="mt-label">{{amiable.adresse}}</p></mat-card>
+        </div>
+        <div class="pb-3">
+          <mat-label class="pb-4 fw-bold fnt-10">Raison sociale</mat-label>
+          <mat-card class="h-input mt-2"><p class="mt-label">{{amiable.raisonSociale}}</p></mat-card>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="pb-4">
+          <mat-label class="pb-4 fw-bold fnt-10">Prénom*</mat-label>
+          <mat-card class="h-input mt-2"><p class="mt-label">{{amiable.prenom}}</p></mat-card>
+        </div>
+        <form [formGroup]="updateCode">
+          <div class="d-flex mt-2" >
+            <div class="col-md-6 px-1">
+              <div class="pt-2">
+                <mat-label class="pb-4 fw-bold fnt-10"><span [hidden]="successCode">Ville</span><span  *ngIf="successCode" class="px-2"><img src="./assets/success.png" class="image-width"><span class="px-1 text-success">Modifié avec succès</span></span></mat-label>
+                <mat-form-field style=" padding-bottom: none !important; position: static;"  appearance='outline' class="w-100">
+                <input [readonly]="isReadOnly" matInput placeholder="Ville" type="text" formControlName="ville" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6 px-1">
+              <div class="py-2">
+                <mat-label class="pb-4 fw-bold fnt-10"><span [hidden]="successCode">Gouvernorat</span><span  *ngIf="successCode" class="px-2"><img src="./assets/success.png" class="image-width"><span class="px-1 text-success">Modifié avec succès</span></span></mat-label>
+                <mat-form-field style=" padding-bottom: none !important; position: static;" appearance='outline' class="w-100">
+                <input [readonly]="isReadOnly" matInput placeholder="Gouvernorat" type="text" formControlName="gouvernorat"/>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+         </form>
+        <div class="pb-5">
+          <mat-label class="pb-4 fw-bold fnt-10">Pays</mat-label>
+          <mat-card class="h-input mt-2" style="position: static;"><p class="mt-label">{{amiable.pays}}</p></mat-card>
+        </div>
+        <div class="pb-3">
+          <mat-label class="pb-4 fw-bold fnt-10"> Identifiant unique</mat-label>
+          <mat-card class="h-input mt-2"><p class="mt-label">{{amiable.identifiant}}</p></mat-card>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="pb-4">
+          <mat-label class="pb-4 fw-bold fnt-10">CIN*</mat-label>
+          <mat-card class="h-input mt-2"><p class="mt-label">{{amiable.cin}}</p></mat-card>
+        </div>
+        <div class="mt-3">
+            <div class="d-flex justify-content-between">
+              <div class="form-group">
+                <mat-label class="pb-4 fw-bold fnt-10 "><span [hidden]="successPhone">Numero de téléphone*</span><span *ngIf="successPhone" class="px-2"><img src="./assets/success.png" class="image-width"><span class="px-1 text-success">Modifié avec succès</span></span></mat-label>
+                <div class="d-inline-block text-dark w-100 mt-1">
+                  <div [formGroup]="form">
+                    <div class="editor-tag" (click)="focusTagInput()"  [ngClass]="{'border border-primary': phoneValidationText }">
+                      <span class="tag-item" *ngFor="let tag of tags">
+                        {{tag}}
+                        <span class="remove-tag" [hidden]="session !== 'GROUP_CHARGES'" (click)="removeTag(tag)">×</span>
+                      </span>
+                            <input
+                            placeholder="Telephone"
+                            #tagInput type="text"
+                            class="input-tag"
+                            (keyup)="onKeyUp($event)"
+                            formControlName="tag"
+                            [readonly]="isReadOnly"
+                            (keypress)="keyPress($event) && countChar($event)">
+                    </div>
+                  </div>
+                </div>
+                  <div class="py-2">
+                    <div class="alert alert-primary " role="alert" *ngIf="phoneValidationText">
+                      <p>NB: Veuillez vérifier que le numero téléphone contient seulement 8 chiffres</p>
+                    </div>
+                  </div>
+              </div>
+              <div class="w-25 mt-1"  [hidden]="session !== 'GROUP_CHARGES'">
+                <span class="px-2"> <button class="btn btn-outline-secondary phone-btn"  type="submit" (click)="saveNewPhone()"><mat-icon matSuffix class="icon-color px-1 mt-1">create</mat-icon ></button></span>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    </mat-card>
+    <br>
+  <mat-card>
+      <mat-card-subtitle class="py-2 fw-bold text-dark">Informations financières</mat-card-subtitle>
+      <div class="row" *ngIf="amiable">
+        <div class="col-md-4">
+          <div>
+            <mat-label class="pb-4 fw-bold fnt-10">Montant de la créance</mat-label>
+            <mat-card class="h-input "><p class="mt-label">{{amiable.montantDeCreance}}</p></mat-card>
+          </div>
+        </div>
+        <div class="col-md-4 pb-3">
+          <div>
+            <mat-label class="pb-4 fw-bold fnt-10">Interet de retard </mat-label>
+            <mat-card class="h-input "><p class="mt-label">{{amiable.interetDeRetard}}</p></mat-card>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div>
+            <mat-label class="pb-4 fw-bold fnt-10">Frais de dossier</mat-label>
+            <mat-card class="h-input "><p class="mt-label">{{amiable.fraisDeDossier}}</p></mat-card>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+    <br>
+    <mat-card>
+
+      <div [hidden]="session !== 'GROUP_DIRECTEURS'">
+        <mat-card-subtitle class="py-2 fw-bold text-dark" >Echéancier</mat-card-subtitle>
+      </div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+       <div class="form-group d-flex justify-content-between" >
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Echéancier</mat-card-subtitle>
+          <div class="d-flex">
+            <span  class="px-2"><a (click)="hide()"><img src="./assets/plus.png" class="icon"></a></span>
+            <span  class="px-2"><a (click)="update()"><img src="./assets/pencil.png" class="icon"></a></span>
+            <span  class="px-2"><a (click)="show()"><img src="./assets/check.png" class="icon"></a></span>
+          </div>
+       </div>
+      </div>
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable" *ngIf="list">
+        <div class=" rounded border border-secondary">
+          <mat-table #table [dataSource]="echeancier" matSort>
+
+              <!-- select Column -->
+              <ng-container matColumnDef="select">
+              <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+              <mat-cell *matCellDef="let echeancier">
+                <mat-checkbox (click)="selectEcheancier(echeancier.nomEcheancier)"></mat-checkbox>
+              </mat-cell>
+              </ng-container>
+
+              <!-- periodicite Column -->
+              <ng-container matColumnDef="periodicite">
+               <mat-header-cell *matHeaderCellDef> Périodicité </mat-header-cell>
+               <mat-cell *matCellDef="let echeancier">{{echeancier.periodicite}} </mat-cell>
+              </ng-container>
+
+              <!-- montant  Column -->
+              <ng-container matColumnDef="montant">
+               <mat-header-cell *matHeaderCellDef> Montant </mat-header-cell>
+               <mat-cell *matCellDef="let echeancier"> {{echeancier.montant}} </mat-cell>
+              </ng-container>
+
+              <!-- date Premiere Echiancier Column -->
+              <ng-container matColumnDef="datePremiereEcheancier">
+               <mat-header-cell *matHeaderCellDef>  Date 1ere echéance</mat-header-cell>
+               <mat-cell *matCellDef="let echeancier">{{echeancier.datePremiereEcheancier | date: 'dd/MM/yyyy'}} </mat-cell>
+              </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedTabColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedTabColumns;"></mat-row>
+
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[2 , 3 , 4 , 5]"></mat-paginator>
+
+        </div>
+      </div>
+
+        <mat-card *ngIf="add">
+          <app-new-echeancier (reloadData)="Reload($event)"></app-new-echeancier>
+        </mat-card>
+
+        <mat-card *ngIf="updateForm">
+           <app-update-echeancier (reloadData)="Reload($event)"></app-update-echeancier>
+        </mat-card>
+
+    </mat-card>
+
+
+

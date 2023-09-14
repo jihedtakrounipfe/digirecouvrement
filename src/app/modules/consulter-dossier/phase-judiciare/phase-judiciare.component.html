@@ -1,0 +1,83 @@
+
+    <mat-card>
+      <div [hidden]="session !== 'GROUP_DIRECTEURS'">
+        <mat-card-subtitle class="py-2 fw-bold text-dark" >Détail des frais</mat-card-subtitle>
+      </div>
+
+      <div [hidden]="session !== 'GROUP_CHARGES'">
+       <div class="form-group d-flex justify-content-between" >
+          <mat-card-subtitle class=" fw-bold text-dark mt-2">Détail des frais</mat-card-subtitle>
+          <div class="d-flex">
+            <span  class="px-2"><a (click)="hide()"><img src="./assets/plus.png" class="icon"></a></span>
+            <span  class="px-2"><a (click)="update()"><img src="./assets/pencil.png" class="icon"></a></span>
+            <span  class="px-2"><a (click)="show()"><img src="./assets/check.png" class="icon"></a></span>
+          </div>
+       </div>
+      </div>
+      <div style="overflow-y: auto;" data-automation-id="copyClipboard-datatable" *ngIf="list">
+        <mat-card>
+          <div class=" rounded border border-secondary">
+          <mat-table #table [dataSource]="DetailsFrais" matSort>
+
+              <!-- periodicite Column -->
+              <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let DetailsFrais">
+                <mat-checkbox (click)="selectFrais(DetailsFrais.nomfraisjdc)"></mat-checkbox>
+               </mat-cell>
+              </ng-container>
+
+              <!-- nom Column -->
+              <ng-container matColumnDef="nom">
+               <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+               <mat-cell *matCellDef="let DetailsFrais">{{DetailsFrais.nom}} </mat-cell>
+              </ng-container>
+
+              <!-- prenom  Column -->
+              <ng-container matColumnDef="prenom">
+               <mat-header-cell *matHeaderCellDef> Prénom </mat-header-cell>
+               <mat-cell *matCellDef="let DetailsFrais"> {{DetailsFrais.prenom}} </mat-cell>
+              </ng-container>
+
+              <!-- date Premiere Echiancier Column -->
+              <ng-container matColumnDef="typeDeTiers">
+               <mat-header-cell *matHeaderCellDef>  Type De Tiers</mat-header-cell>
+               <mat-cell *matCellDef="let DetailsFrais"> {{DetailsFrais.typedeTiers}} </mat-cell>
+              </ng-container>
+
+              <!-- date Premiere Echiancier Column -->
+              <ng-container matColumnDef="facturation">
+               <mat-header-cell *matHeaderCellDef>  Facturation</mat-header-cell>
+               <mat-cell *matCellDef="let DetailsFrais"> {{DetailsFrais.facturation}} </mat-cell>
+              </ng-container>
+
+             <!-- date Premiere Echiancier Column -->
+             <ng-container matColumnDef="paiment">
+              <mat-header-cell *matHeaderCellDef>  Paiment</mat-header-cell>
+              <mat-cell *matCellDef="let DetailsFrais"> {{DetailsFrais.paiment}} </mat-cell>
+             </ng-container>
+
+             <!-- date Premiere Echiancier Column -->
+             <ng-container matColumnDef="typedesaisine">
+              <mat-header-cell *matHeaderCellDef>  Type de saisine</mat-header-cell>
+              <mat-cell *matCellDef="let DetailsFrais"> {{DetailsFrais.typedeSaisine}} </mat-cell>
+             </ng-container>
+
+            <mat-header-row *matHeaderRowDef="displayedTabColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedTabColumns;"></mat-row>
+
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[2 , 3 , 4 , 5]"></mat-paginator>
+        </div>
+        </mat-card>
+      </div>
+      <mat-card *ngIf="add">
+        <h4>Ajouter Détail</h4>
+        <app-new-detail-frais (reloadData)="Reload($event)"></app-new-detail-frais>
+      </mat-card>
+
+      <mat-card *ngIf="updateForm">
+         <h4>Modifier Détail</h4>
+         <app-update-detail-frais (reloadData)="Reload($event)"></app-update-detail-frais>
+      </mat-card>
+    </mat-card>

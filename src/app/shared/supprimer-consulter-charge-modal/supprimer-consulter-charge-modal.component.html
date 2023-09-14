@@ -1,0 +1,64 @@
+<div class="py-3 ">
+  <div>
+  <div class="icon text-center">
+    <img src="./assets/success.png">
+  </div>
+  <br>
+  <div class="titre text-center">
+    <h2 mat-dialog-title class="fw-bold"> {{title_label}} </h2>
+  </div>
+  <div *ngIf="Supprimer_Display">
+    <div class="text-center"><h4>{{sub_title_label}}</h4></div>
+  <br>
+    <div class="d-flex justify-content-center">
+    <tbody>
+     <tr *ngFor="let item of numSelected">
+      <td>{{item.firstName}}</td>
+     </tr>
+    </tbody>
+    </div>
+    <br>
+  </div>
+  <div *ngIf="Remplacer_Display">
+
+      <div *ngIf="ShoWOldcharge">
+        <mat-card-subtitle class="pb-1 fw-bold text-dark">Ancien chargé</mat-card-subtitle>
+        <div class="w-100  bg-gray rounded border border-secondary d-flex justify-content-center mt-1" >
+          <tr *ngFor="let item of numSelected">
+             <td><h4 class="fw-bold mt-3 ">{{item.firstName}} {{item.lastName}}</h4></td>
+          </tr>
+        </div>
+      </div>
+      <br/>
+      <br>
+      <div>
+        <form [formGroup]="Remplacer_Form">
+        <mat-card-subtitle class="pb-1 fw-bold text-dark">Nouveau chargé</mat-card-subtitle>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select name="frais" class="w-20" placeholder="Nouveau chargé" formControlName="agent">
+            <mat-option *ngFor="let item of charges" [value]="item.firstName" >
+              {{item.firstName}} {{item.lastName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        </form>
+      </div>
+  </div>
+  <br>
+  <br>
+
+  <div class="text-center">
+
+    <button mat-button  mat-dialog-close="true" class="annuler-btn"> {{button_label_1}}</button>
+     &nbsp;
+     &nbsp;
+     &nbsp;
+     &nbsp;
+     &nbsp;
+    <button mat-button *ngIf="Remplacer_Display" (click)=" onRplaceCharge()" class="ok-btn"> {{button_label_2}} </button>
+    <button mat-button *ngIf="Supprimer_Display" (click)=" onDesableCharge()" class="ok-btn"> {{button_label_2}} </button>
+
+  </div>
+</div>
+</div>
+

@@ -1,0 +1,265 @@
+<section>
+  <div class="pb-4 d-flex justify-content-between">
+    <mat-card-title>Liste de dossiers</mat-card-title>
+    <div class="d-inline-block px-2">
+      <mat-form-field appearance="outline">
+        <input matInput (keyup)="applyFilter($event.target.value)"  placeholder="Recherche">
+        <mat-icon matSuffix color="primary">search</mat-icon>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between">
+
+       <div>
+        <mat-form-field appearance="outline">
+          <mat-select placeholder="Tout les dossiers" [(ngModel)]="selectedStatus" (ngModelChange)="onChangeStatus()">
+            <mat-option *ngFor="let s of status " [value]="s">
+              {{s}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="d-flex px-1">
+        <div class="w-100 mt-3">
+          <mat-radio-group [(ngModel)]="selectedPhaseNumber" (ngModelChange)=" filter_phase()" name="phase">
+            <ul class="items answers-list" style="display:flex">
+              <li class="answer px-4" [ngClass]="{ active: selectedPhaseNumber === i + 1 }" *ngFor="let answer of ListPhases.data; let i = index">
+                <mat-radio-button disableRipple="true" [value]="answer.value">
+                  <p class="font-weight-normal">{{ answer.text }}</p>
+                </mat-radio-button>
+              </li>
+            </ul>
+          </mat-radio-group>
+        </div>
+        <!-- <p class="d-inline-block mb-2 text-dark px-4 mt-2 fw-bold cursor" (click)="reset(reset)">Tout</p>
+        <p class="d-inline-block mb-2 text-dark px-4 mt-2 fw-bold cursor" (click)="filter_phase('Amiable')" >Amiable</p>
+        <p class="d-inline-block mb-2 text-dark px-4 mt-2 fw-bold cursor" (click)="filter_phase('Précontentieuse')" >Précontentieuse</p>
+        <p class="d-inline-block mb-2 text-dark px-4 mt-2 fw-bold cursor" (click)="filter_phase('Judiciaire')" >Judiciaire</p> -->
+
+        <div class="d-inline-block px-2 mt-1">
+           <button  mat-button class="btn-filter" (click)="Filtertoggle()">{{buttonName}}<mat-icon inline=true>filter_list</mat-icon></button>
+        </div>
+        <div class="d-inline-block mt-1 px-1" *ngIf="ShowAction">
+          <button  mat-button class="btn-filter" (click)="openModal()">Relance par lot ({{selection?.selected?.length}})<mat-icon class="px-2" inline=true>folder</mat-icon></button>
+        </div>
+        <div class="d-inline-block mt-1 px-1" *ngIf="ShowerAffecter">
+          <button  mat-button class="btn-filter" (click)="openMultiAffectation()">Affectation par lot ({{selection?.selected?.length}})<mat-icon class="px-2" inline=true>folder</mat-icon></button>
+        </div>
+        <div class="d-inline-block px-2 mt-1">
+          <button class="reset-btn" mat-button  (click)="reset(reset)"><mat-icon inline=true>replay</mat-icon></button>
+        </div>
+      </div>
+   </div>
+
+      <div>
+        <ng-container *ngIf="show" >
+          <div class="d-flex justify-content-end ">
+            <div class="d-inline-block px-2">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="État" [(ngModel)]="selectedEtat" (ngModelChange)="onChangeEtat()">
+                  <mat-option *ngFor="let s of etat " [value]="s">
+                    {{s}}
+                  </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="d-inline-block px-2">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Région" [(ngModel)]="selectedDevice_4" (ngModelChange)="onChangeRegion()">
+                  <mat-option *ngFor="let s of gouvernorat " [value]="s">
+                    {{s}}
+                  </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="d-inline-block px-2">
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Montant" [(ngModel)]="selectedDevice_3" (ngModelChange)="onChangeMontant()">
+                  <mat-option (click)="filter_montant(0,10000)" >0 - 10 000</mat-option>
+                  <mat-option (click)="filter_montant(10000,100000)" >10 000 - 100 000</mat-option>
+                  <mat-option (click)="filter_montant(100000,500000)" >100 000 - 500 000</mat-option>
+                  <mat-option (click)="filter_montant(500000,100000000)" >500 000 - 1 000 000</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline">
+               <mat-select placeholder="Chargé" [(ngModel)]="selectedDevice" (ngModelChange)="onChange()">
+                <mat-option *ngFor="let item of charges" [value]="item.firstName" >
+                  {{item.firstName}}  {{item.lastName}}
+                </mat-option>
+               </mat-select>
+              </mat-form-field>
+            </div>
+            </div>
+            </ng-container>
+          </div>
+
+
+  <div class="example-container mat-elevation-z8 mt-3 ">
+  <mat-table #table [dataSource]="dossier" matSort >
+
+    <ng-container matColumnDef='select' >
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)='$event ? masterToggle() : null'
+                      [checked]='selection.hasValue() && isAllSelected() '
+                      [indeterminate]='selection.hasValue() && !isAllSelected()'>
+        </mat-checkbox>
+      </mat-header-cell>
+
+        <mat-cell mat-cell *matCellDef='let element' >
+          <mat-checkbox (click)='$event.stopPropagation()' style="border-color: white "
+            [hidden]="element.statusAmiable !=='En cours' && element.statusAmiable !=='À Faire'"
+            (change)='$event ? selection.toggle(element.nomDossier) : null'
+            [checked]='selection.isSelected(element.nomDossier)  && isSomeSelected()'>
+          </mat-checkbox>
+          <mat-icon class="margin-icon" [hidden]="element.statusAmiable == 'En cours' || element.statusAmiable == 'À Faire'">
+            lock</mat-icon>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef='selected' >
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)='$event ? masterToggle() : null'
+                      [checked]='selection.hasValue() && isAllSelected() '
+                      [indeterminate]='selection.hasValue() && !isAllSelected()'>
+        </mat-checkbox>
+      </mat-header-cell>
+
+        <mat-cell mat-cell *matCellDef='let element' >
+          <mat-checkbox (click)='$event.stopPropagation()' [hidden]="element.statusAmiable !=='Non affecté'"
+            (change)='$event ? selection.toggle(element.nomDossier) : null'
+            [checked]='selection.isSelected(element.nomDossier)  && isSomeSelected()'>
+          </mat-checkbox>
+          <mat-icon class="margin-icon" [hidden]="element.statusAmiable =='Non affecté'">lock</mat-icon>
+        </mat-cell>
+
+    </ng-container>
+    <!-- Position Column -->
+    <ng-container matColumnDef="nomDossier">
+      <mat-header-cell *matHeaderCellDef> Numéro de Dossier </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3"><a [routerLink]="['/document-node/'+ element.nodeId]" [queryParams]="{debug: true}" >{{element.nomDossier}}</a></p>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="nom">
+      <mat-header-cell *matHeaderCellDef> Nom débiteur </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.nom}} {{element.prenom}}</p></mat-cell>
+    </ng-container>
+
+    <!-- Adresse  Column -->
+    <ng-container matColumnDef="adresse">
+      <mat-header-cell *matHeaderCellDef> Adresse </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.adresse}}</p></mat-cell>
+    </ng-container>
+    <!-- État Column -->
+    <ng-container matColumnDef="etat">
+      <mat-header-cell *matHeaderCellDef> État </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.etat}}</p></mat-cell>
+    </ng-container>
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+      <div [hidden]="element.phase !== 'Amiable'">
+        <button mat-button  class="staus-btn"
+        [style.background-color]="element.statusAmiable =='Ouverte' ? '#007DC0' : (element.statusAmiable =='Non affecté' ? '#6C757D' : (element.statusAmiable =='À Faire' ? '#147BFC' : (element.statusAmiable =='En cours'? '#FE9E2D' : (element.statusAmiable =='Traité' ? '#28A745' : (element.statusAmiable =='Signalé' ? '#DC3545' : (element.statusAmiable =='Affecté' ? '#8A2BE2' : null))))))" >
+        <span [hidden]="element.phase !== 'Amiable'">{{element.statusAmiable}}</span>
+        <span [hidden]="element.phase !== 'Judisiare'">{{element.statusContentieuse}}</span>
+        <span [hidden]="element.phase !== 'Précontentieuse'">{{element.statusPrecontentieuse}}</span>
+      </button>
+      </div>
+
+      <div [hidden]="element.phase !== 'Précontentieuse'">
+        <button mat-button  class="staus-btn"
+        [style.background-color]="element.statusAmiable =='Ouverte' ? '#007DC0' : (element.statusPrecontentieuse =='Non affecté' ? '#6C757D' : (element.statusPrecontentieuse =='À Faire' ? '#147BFC' : (element.statusPrecontentieuse =='En cours'? '#FE9E2D' : (element.statusPrecontentieuse =='Traité' ? '#28A745' : (element.statusPrecontentieuse =='Signalé' ? '#DC3545' : (element.statusPrecontentieuse =='Affecté' ? '#8A2BE2' : null))))))" >
+         <span [hidden]="element.phase !== 'Amiable'">{{element.statusAmiable}}</span>
+         <span [hidden]="element.phase !== 'Judisiare'">{{element.statusContentieuse}}</span>
+        <span [hidden]="element.phase !== 'Précontentieuse'">{{element.statusPrecontentieuse}}</span>
+        </button>
+      </div>
+
+
+      <div [hidden]="element.phase !== 'Judisiare'">
+        <button mat-button  class="staus-btn"
+        [style.background-color]="element.statusPrecontentieuse =='Ouverte' ? '#007DC0' : (element.statusPrecontentieuse =='Non affecté' ? '#6C757D' : (element.statusPrecontentieuse =='À Faire' ? '#147BFC' : (element.statusPrecontentieuse =='En cours'? '#FE9E2D' : (element.statusPrecontentieuse =='Traité' ? '#28A745' : (element.statusPrecontentieuse =='Signalé' ? '#DC3545' : (element.statusPrecontentieuse =='Affecté' ? '#8A2BE2' : null))))))" >
+         <span [hidden]="element.phase !== 'Amiable'">{{element.statusAmiable}}</span>
+         <span [hidden]="element.phase !== 'Judisiare'">{{element.statusContentieuse}}</span>
+        <span [hidden]="element.phase !== 'Précontentieuse'">{{element.statusPrecontentieuse}}</span>
+        </button>
+      </div>
+
+      </mat-cell>
+
+    </ng-container>
+
+      <!-- Phase Column -->
+      <ng-container matColumnDef="phase">
+        <mat-header-cell *matHeaderCellDef> Phase </mat-header-cell>
+        <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.phase}} </p></mat-cell>
+      </ng-container>
+      <!-- Montant Column -->
+      <ng-container matColumnDef="montant">
+        <mat-header-cell *matHeaderCellDef> Montant </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <p class="fnt-10 mt-3">{{element.montant}} DT</p></mat-cell>
+      </ng-container>
+            <!-- Montant Column -->
+      <ng-container matColumnDef="region">
+        <mat-header-cell *matHeaderCellDef> Gouvernorat </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <p class="fnt-10 mt-3">{{element.gouvernorat}}</p></mat-cell>
+      </ng-container>
+      <!-- Date début Column -->
+      <ng-container matColumnDef="created">
+        <mat-header-cell *matHeaderCellDef> Date début </mat-header-cell>
+        <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.created | date: 'shortDate'}}</p></mat-cell>
+      </ng-container>
+      <!-- Date fin Column -->
+      <ng-container matColumnDef="modified">
+       <mat-header-cell *matHeaderCellDef> Date fin </mat-header-cell>
+       <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.modified | date: 'shortDate'}}</p></mat-cell>
+      </ng-container>
+
+      <!-- Date fin Column -->
+      <ng-container matColumnDef="agent">
+        <mat-header-cell *matHeaderCellDef> Nom chargé </mat-header-cell>
+        <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.agent}}</p></mat-cell>
+      </ng-container>
+
+      <!--Consulter action Column -->
+      <ng-container matColumnDef="consulter">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element"><div class="px-1"><button mat-button  class="action-btn"  (click)="CnsulterAction(element.nomDossier)">Consulter</button></div></mat-cell>
+      </ng-container>
+
+      <!--Affecter action Column -->
+      <ng-container matColumnDef="affecter">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element"><div class="px-1"><button type="button" [ngClass]="session == 'GROUP_CHARGES' ? 'disable' : 'enable'"  [ngClass]="element.statusAmiable  !=='Non affecté' ? 'disable' : 'enable'"   mat-button   (click)="openDialogAffecter(element.nomDossier)">Affecter</button></div></mat-cell>
+      </ng-container>
+
+      <!--action action Column -->
+      <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let element"><div class="px-1" >
+        <button type="button" mat-button [ngClass]="session == 'GROUP_CHARGES' ?  'disable' : 'enable'" [matMenuTriggerFor]='menu'  [ngClass]="element.statusAmiable =='Signalé' || element.statusAmiable =='Traité' ? 'disable' : 'enable'"> <mat-icon>more_horiz</mat-icon></button>
+
+      <mat-menu #menu='matMenu'>
+        <button  mat-menu-item  (click)="openReaffecterDialog(element)" [ngClass]="element.statusAmiable =='Non affecté' ? 'disable' : 'enable'" >Réaffecter Dossier </button>
+        <button  mat-menu-item  (click)="openDialogSignaler(element.nomDossier)" [hidden]="element.statusAmiable !== 'Non affecté' " >Signaler Dossier </button>
+      </mat-menu>
+
+      </div></mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+
+</section>

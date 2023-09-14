@@ -1,0 +1,164 @@
+
+ <form [formGroup]="New_Charge_Form" >
+  <div class="navbar pb-3">
+    <div class="container-fluid">
+      <div class="d-inline-block mb-2 text-dark mt-2 ">
+        <mat-card-title >{{nomCharge}} {{prenomCharge}}</mat-card-title>
+      </div>
+      <div class="d-flex">
+        <div class="d-inline-block mb-2 text-dark px-2  ">
+          <button mat-button  type="submit" class="save-btn" (click)="save()" >Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-card>
+    <mat-card-subtitle class=" text-dark">Informations générales</mat-card-subtitle >
+    <!---------------------------------- niveau 1 ----------------------------->
+    <div class="row py-2" >
+      <div class="col-md-3">
+          <label class=" fw-bold pb-1">Nom</label>
+          <div class="card">
+            <div class="card-body bg-card text-center">
+              {{nomCharge}}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+          <label class=" fw-bold pb-1">Prénom</label>
+          <div class="card">
+            <div class="card-body bg-card text-center">
+              {{prenomCharge}}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <label class=" fw-bold pb-1">Code</label>
+        <div class="card">
+          <div class="card-body bg-card text-center">
+            {{codeCharge}}
+          </div>
+        </div>
+    </div>
+    </div>
+    <!---------------------------------- niveau 2 ----------------------------->
+    <div class="row py-2" >
+      <div class="col-md-3">
+          <label class=" fw-bold pb-1">Adresse</label>
+          <div class="card">
+            <div class="card-body bg-card text-center">
+              {{adresseCharge}}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-3">
+        <label class=" fw-bold pb-1">Code postal</label>
+        <div class="card">
+          <div class="card-body bg-card text-center">
+            {{codePostalCharge}}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="row">
+         <div class="col-md-6">
+          <label class=" fw-bold pb-1">Ville</label>
+          <div class="card">
+            <div class="card-body bg-card text-center">
+              {{villeCharge}}
+            </div>
+          </div>
+         </div>
+         <div class="col-md-6">
+          <label class=" fw-bold pb-1">Gouvernorat</label>
+          <div class="card">
+            <div class="card-body bg-card text-center">
+              {{gouvernoratCharge}}
+            </div>
+          </div>
+         </div>
+        </div>
+      </div>
+     </div>
+
+     <!---------------------------------- niveau 3 ----------------------------->
+     <div class="row py-2" >
+      <div class="col-md-3">
+        <label class=" fw-bold"> Numéro de téléphone</label>
+        <mat-form-field appearance='outline' class="w-100" >
+          <input matInput placeholder="Numéro de téléphone" type="text" formControlName="telephone" appNumberOnly>
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <label class="fw-bold"> Email </label>
+        <mat-form-field appearance='outline' class="w-100">
+          <input matInput placeholder="Ville" type="text" formControlName="email">
+        </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <label class="fw-bold">Profil de chargé </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Disponibilité" formControlName="skypeId"  >
+            <mat-option type="text" *ngFor="let p of profile" [value]="p">{{p}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <!---------------------------------- niveau 4 ----------------------------->
+
+    <mat-card-subtitle class=" text-dark pt-4">Paramètres d’affectation</mat-card-subtitle>
+    <div class="row">
+      <div class="col-md-3">
+        <label class="fw-bold">Gouvernorat</label>
+          <mat-form-field appearance='outline' class="w-100">
+            <mat-select placeholder="Gouvernorat" formControlName="location">
+              <mat-option *ngFor="let gov of gouvernorat" [value]="gov">{{gov}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+      <div class="col-md-3">
+       <label class="fw-bold">Palier du montant d’affectation</label>
+         <mat-form-field appearance='outline' class="w-100">
+           <mat-select placeholder="palier" formControlName="chm:palierMontant">
+             <mat-option *ngFor="let pal of palier" [value]="pal">{{pal}}</mat-option>
+         </mat-select>
+      </mat-form-field>
+     </div>
+      <div class="col-md-3">
+        <label class="fw-bold"> Disponibilité </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Disponibilité" formControlName="chm:disponibilite" [(ngModel)]="dispo" (ngModelChange)="onChange()">
+            <mat-option type="text" value="true">Oui</mat-option>
+            <mat-option type="text" value="false">Non</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="row">
+     <div class="col-md-3" [hidden]="dispo =='true'">
+       <label class="fw-bold">Motif d'absence</label>
+          <mat-form-field appearance='outline' class="w-100">
+           <mat-select placeholder="Motif d'absence" formControlName="chm:motif" >
+             <mat-option value="maladie">Maladie</mat-option>
+             <mat-option value="conge">Congé</mat-option>
+             <mat-option value="depart" (click)="openRemplacerDialog()">Départ</mat-option>
+          </mat-select>
+         </mat-form-field>
+       </div>
+     <div class="col-md-3">
+         <div  [hidden]="dispo =='true'">
+         <label class=" fw-bold">Date de La prochaine disponibilite</label>
+         <mat-form-field appearance="outline" class="w-100">
+           <input matInput [matDatepicker]="picker" placeholder="Date de La prochaine disponibilite"
+             formControlName="chm:dateDeLaProchaineDisponibilite" (dateChange)="setDate($event.value)" >
+           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+           <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field>
+         </div>
+     </div>
+
+    </div>
+
+    </mat-card>
+ </form>

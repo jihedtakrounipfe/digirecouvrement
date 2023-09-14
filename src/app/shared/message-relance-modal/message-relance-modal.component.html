@@ -1,0 +1,109 @@
+<div class="py-2">
+<form [formGroup]="Reclamation_Form" *ngIf="Reclamation" >
+  <div>
+    <h2 mat-dialog-title class="fw-bold"> {{title_label}}</h2>
+  </div>
+    <!-- <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_1}}</p></label>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-select name="frais" class="w-20" placeholder="Nouveau chargé">
+        <mat-option *ngFor="let item of splitedTelephone" [value]="item" >
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field> -->
+    <br>
+    <div class="form-group">
+      <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_2}}</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" formControlName="textsms"></textarea>
+      </div>
+    </div>
+    <br>
+    <br>
+
+</form>
+<form [formGroup]="sms_Form" *ngIf="sms">
+  <div>
+    <h2 mat-dialog-title class="fw-bold"> {{title_label}}</h2>
+  </div>
+
+    <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_1}}</p></label>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-select name="frais" class="w-20" placeholder="{{NumPhone}}">
+        <mat-option *ngFor="let item of splitedTelephone" [value]="item" >
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <div class="rounded-2 border border-1 py-2 text-center bg-light"><p class="mt-3 fw-bold px-1">{{NumPhone}}</p></div> -->
+    <br>
+    <div class="form-group">
+      <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_2}}</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="textsms"></textarea>
+      </div>
+    </div>
+
+</form>
+<form [formGroup]="appel_Form" *ngIf="appel">
+  <div>
+    <h2 mat-dialog-title class="fw-bold"> {{title_label}}</h2>
+  </div>
+
+    <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_1}}</p></label>
+    <mat-form-field appearance="outline" class="w-100">
+      <mat-select name="frais" class="w-20" placeholder="{{NumPhone}}">
+        <mat-option *ngFor="let item of splitedTelephone" [value]="item" >
+          {{item}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <!-- <div class="rounded-2 border border-1 py-2 text-center bg-light"><p class="mt-3 fw-bold px-1">{{NumPhone}}</p></div> -->
+    <br>
+    <div class="form-group">
+      <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_2}}</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="commentaire"></textarea>
+      </div>
+    </div>
+
+</form>
+<form [formGroup]="multiple_Form" *ngIf="multi_message">
+  <div>
+    <h2 mat-dialog-title class="fw-bold"> {{title_label}}</h2>
+  </div>
+
+    <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_1}}</p></label>
+    <div class="overflow-auto" style="height: 70px;">
+      <ul *ngFor="let item of selectedFolders">
+       <li>{{item}}</li>
+      </ul>
+    </div>
+    <br>
+    <div class="form-group">
+      <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_2}}</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" formControlName="textsms"></textarea>
+      </div>
+    </div>
+
+</form>
+<br>
+<br>
+<div class="px-5">
+<div class=" d-flex justify-content-between px-5">
+    <button mat-button  mat-dialog-close="true" class="annuler-btn">{{button_label_1}}</button>
+
+     &nbsp;
+     &nbsp;
+     &nbsp;
+     &nbsp;
+     &nbsp;
+
+    <button *ngIf="Reclamation" mat-button type="submit" class="ok-btn" (click)="onSubmitReclamation()"> {{button_label_2}} </button>
+    <button *ngIf="sms" mat-button type="submit" class="ok-btn" (click)="onSubmitSMS()"> {{button_label_2}} </button>
+    <button *ngIf="appel" mat-button type="submit" class="ok-btn" (click)="onSubmitAppel()"> {{button_label_2}} </button>
+    <button *ngIf="multi_message" mat-button type="submit" class="ok-btn" (click)="onSubmitMultiple()"> {{button_label_2}} </button>
+</div>
+</div>
+</div>

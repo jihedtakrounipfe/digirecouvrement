@@ -1,0 +1,115 @@
+<div class="pb-3 px-5">
+  <div class="d-flex justify-content-between pb-3">
+    <div>
+      <mat-card-title>Ajout des Versements</mat-card-title>
+    </div>
+    <div>
+     <button type="button"  mat-button class="frais-btn">Enregistrer</button>
+    </div>
+  </div>
+  <div>
+    <mat-card>
+      <div class="d-flex justify-content-between">
+        <div class="col-md-3">
+              <div class="pt-2">
+                <mat-card-subtitle class="py-1 fw-bold text-dark"
+                  >Engagement</mat-card-subtitle
+                >
+                <div class="py-1">
+                  <mat-label>Montant</mat-label>
+                </div>
+                <div>
+                  <button mat-raised-button disabled class="w-100 fw-bold">
+                    {{montant}} TND
+                  </button>
+                </div>
+              </div>
+              <br />
+              <div>
+                <mat-card-subtitle class="py-1 fw-bold text-dark"
+                  >Créance</mat-card-subtitle
+                >
+                <div class="py-1">
+                  <mat-label>Créance</mat-label>
+                </div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-select name="frais" class="w-20" placeholder="Créance">
+                    <mat-option *ngFor="let s of select" [value]="s">
+                      {{ s }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between py-1">
+        <div>
+          <mat-card-subtitle class="mt-1 fw-bold text-dark">État des Versements</mat-card-subtitle>
+        </div>
+        <div>
+         <button type="button"  mat-button class="new-btn" (click)="openDialog()">Ajouter Versements</button>
+        </div>
+      </div>
+      <div class=" rounded border border-secondary">
+      <mat-table #table [dataSource]="versement" matSort>
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="nomVersement">
+          <mat-header-cell *matHeaderCellDef> Réference de Versement </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.referenceVersement }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="dateVersement">
+          <mat-header-cell *matHeaderCellDef> Date de Versements </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.dateVersement | date: 'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+
+         <!-- Name Column -->
+         <ng-container matColumnDef="montantVersement">
+          <mat-header-cell *matHeaderCellDef> Montant Versement </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.montantVersement }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="modeReglement">
+          <mat-header-cell *matHeaderCellDef> Mode de reglement </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.modeReglement }} </mat-cell>
+        </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="typedeversement">
+            <mat-header-cell *matHeaderCellDef> Type de versement </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{ element.typeVersement }} </mat-cell>
+          </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="affectaion">
+          <mat-header-cell *matHeaderCellDef> Affectaion </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{ element.affectaion }} </mat-cell>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="telecharger">
+          <mat-header-cell *matHeaderCellDef> Telecharger fichier </mat-header-cell>
+          <mat-cell *matCellDef="let element" >
+            <div class="px-4">
+            <a href="{{baseUrl}}{{element.telecharger}}{{ticket}}">
+              <mat-icon class="action-icon" >cloud_download</mat-icon>
+            </a>
+          </div>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+    </mat-card>
+
+  </div>
+  </div>
+
+
+

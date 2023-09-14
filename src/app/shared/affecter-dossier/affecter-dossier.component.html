@@ -1,0 +1,122 @@
+<div class="py-3 px-4">
+
+
+<div *ngIf="affecter_Display">
+    <div>
+      <h2 class=" fw-bold">Affecter Dossier</h2>
+    </div>
+    <form [formGroup]="affecterForm">
+    <mat-label>Liste des chargés</mat-label>
+      <div>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Liste des chargés" formControlName="agent">
+              <mat-option *ngFor="let s of charges" [value]="s.firstName">
+                  {{s.firstName}}  {{s.lastName}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="text-center">
+      <button mat-button  mat-dialog-close="true" class="annuler-btn">{{button_label_1}}</button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <button mat-button type="submit"  (click)="openDialogAffecter()" class="ok-btn"> {{button_label_2}} </button>
+      </div>
+    </form>
+</div>
+
+<div *ngIf="reaffecter_Display">
+  <div>
+    <h2 class=" fw-bold">Réaffecter Dossier</h2>
+  </div>
+
+  <div>
+    <mat-card-subtitle class="pb-1 fw-bold text-dark">Numéro de Dossier</mat-card-subtitle>
+    <div class="w-100  bg-gray rounded border border-secondary d-flex justify-content-center mt-1" >
+         <h4 class="fw-bold mt-3 ">{{selectedFolder.nomDossier}}</h4>
+    </div>
+  </div>
+  <br>
+  <div>
+    <mat-card-subtitle class="pb-1 fw-bold text-dark">Ancien chargé</mat-card-subtitle>
+    <div class="w-100  bg-gray rounded border border-secondary d-flex justify-content-center mt-1" >
+       <h4 class="fw-bold mt-3 ">{{selectedFolder.agent}}</h4>
+    </div>
+  </div>
+  <br>
+  <form [formGroup]="reaffecterForm">
+    <mat-card-subtitle class="pb-1 fw-bold text-dark">Nouveau chargé</mat-card-subtitle>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Liste des chargés" formControlName="agent">
+            <mat-option *ngFor="let s of charges" [value]="s.firstName ">
+                {{s.firstName}}  {{s.lastName}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+    <br>
+    <div class="text-center">
+      <button mat-button  mat-dialog-close="true" class="annuler-btn">{{button_label_1}}</button>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <button mat-button type="submit"    (click)="openDialogReaffecter()" class="ok-btn"> {{button_label_2}} </button>
+      </div>
+  </form>
+</div>
+
+<div *ngIf="multi_affecter">
+  <div>
+    <h2 class=" fw-bold">Affecter Dossier par lot</h2>
+  </div>
+
+  <label class="title"><p class="fnt-size fw-bold">{{sub_title_label_1}}</p></label>
+  <div class="overflow-auto" style="height: 70px;">
+    <ul *ngFor="let item of selectedFolder">
+     <li>{{item}}</li>
+    </ul>
+  </div>
+  <br>
+
+  <form [formGroup]="affectermultiForm">
+  <mat-label>Liste des chargés</mat-label>
+    <div>
+      <mat-form-field appearance="outline" class="w-100">
+          <mat-select placeholder="Liste des chargés" formControlName="agent">
+            <mat-option *ngFor="let s of charges" [value]="s.firstName">
+                {{s.firstName}}  {{s.lastName}}
+            </mat-option>
+          </mat-select>
+      </mat-form-field>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="text-center">
+    <button mat-button  mat-dialog-close="true" class="annuler-btn">{{button_label_1}}</button>
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      &nbsp;
+      <button mat-button type="submit"  (click)="onSubmitMultiple()" class="ok-btn"> {{button_label_2}} </button>
+    </div>
+  </form>
+</div>
+
+</div>

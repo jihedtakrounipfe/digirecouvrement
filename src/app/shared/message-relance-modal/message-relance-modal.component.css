@@ -1,0 +1,26 @@
+
+.annuler-btn{
+  border: 1px solid #1170C4;
+  padding: 0 10px !important;
+  line-height: 34px !important;
+  color: #1170C4 !important;
+  width: 189px;
+  }
+  .ok-btn{
+  border: 1px solid #1170C4;
+  padding: 0 10px !important;
+  line-height: 34px !important;
+  color: #fff !important;
+  width: 189px;
+  background-color:#1170C4;
+  }
+
+.bg-gray{
+  background-color: #dee2e6;
+}
+.border-secondary{ border: 1px solid #dee2e6 !important;}
+
+
+::ng-deep .mat-select-placeholder {
+  color: black !important;
+}

@@ -1,0 +1,28 @@
+<div class="text-center py-5">
+  <div class="icon">
+   <img src="./assets/check.png">
+  </div>
+  <br>
+
+  <div class="titre">
+    <h2 mat-dialog-title class="fw-bold">
+      {{title_label}}
+    </h2>
+    <h4> {{sub_title_label}}</h4>
+  </div>
+  <br>
+  <br>
+  <br>
+  <div>
+
+  <button mat-button type="reset" (click)="closeDialog()" class="annuler-btn">{{button_label_1}}</button>
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  <button *ngIf="valider " mat-button type="submit" (click)="onSubmitConfirmation()" class="ok-btn"> {{button_label_2}} </button>
+  <button *ngIf="signaler" mat-button type="submit" (click)="onSubmitSignaler()" class="ok-btn"> {{button_label_2}} </button>
+
+  </div>
+  </div>

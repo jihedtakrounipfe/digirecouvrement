@@ -1,0 +1,53 @@
+.py-6 {
+  padding-top: 4rem!important;
+  padding-bottom: 3rem!important;
+}
+.f-right{
+  float: right !important;
+}
+::ng-deep .adf-container-full-width {
+  padding-top: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+  }
+
+.fnt-11{
+  font-size: 11px;
+}
+.save-btn {
+  border: 1px solid #1170C4;
+  padding: 0 15px !important;
+  line-height: 34px !important;
+  color: #1170C4 !important;
+  width: 100% !important;
+  background: #fff !important;
+}
+.phone-icon{
+  width:45px;
+  height:40px;
+  margin-top:20px
+}
+.btn-outline-secondary {
+  color: #1170C4;
+  border:1px solid #1170C4;
+}
+.btn-outline-secondary:hover {
+  background-color: #deeffd;
+}
+.icon-blue-color:hover{
+transform: scale(1.2) !important;
+}
+.text-red{
+  color:#f85757;
+}
+.red-border{
+  border: #f85757 solid 1px ;
+}
+.code-icon{
+  width:45px;
+  height:40px;
+  margin-top:34px
+}
+.textinput{
+  color: white !important;
+}

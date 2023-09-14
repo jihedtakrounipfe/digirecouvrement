@@ -1,0 +1,146 @@
+<adf-sidenav-layout
+    [sidenavMin]="70"
+    [sidenavMax]="220"
+    [stepOver]="600"
+    [hideSidenav]="false"
+    [expandedSidenav]="true"
+   >
+
+    <adf-sidenav-layout-header>
+      <ng-template let-toggleMenu="toggleMenu">
+          <mat-toolbar color="primary" class="adf-app-layout-toolbar mat-elevation-z6">
+              <a mat-icon-button (click)="toggleMenu()" >
+                  <mat-icon>menu</mat-icon>
+              </a>
+
+              <span fxFlex="1 1 auto" fxShow fxHide.lt-sm="true"></span>
+              <div class="adf-app-layout-menu-spacer"></div>
+              <div class="col-md-10 d-flex justify-content-end " style="margin-left:6rem">
+              <span>
+                    <button mat-icon-button [matMenuTriggerFor]="notif" class=" mt-2 d-flex align-items-center justify-content-center">
+                      <mat-icon matListIcon class="">notifications</mat-icon>
+                        <span class="badge rounded-pill badge-notification bg-danger"></span>
+                    </button>
+                    <mat-menu #notif="matMenu" class="width-menu" >
+                      <div class="px-1 pt-2">
+                        <div class="d-flex justify-content-between px-2 pb-3">
+                          <span class="fw-bold mt-1"><p class="mt-1">Notifications</p></span>
+                          <button type="button" class="notif-btn">1 nouveaux</button>
+                        </div>
+
+                    <div class="overflow-auto heigt-menu px-2">
+                      <table class="table table-striped ">
+
+                        <tbody >
+                          <tr *ngFor="let item of notification">
+                            <td>{{item}}</td>
+                          </tr>
+                        </tbody>
+
+                      </table>
+                    </div>
+                    </div>
+                    </mat-menu>
+                </span>
+                <span class="navbar-nav ml-auto nav-flex-icons">
+                  <button mat-icon-button [matMenuTriggerFor]="message" class="mt-2 d-flex align-items-center justify-content-center">
+                    <mat-icon matListIcon class="">mail</mat-icon>
+                    <span class="badge rounded-pill badge-notification bg-danger"></span>
+                  </button>
+                  <mat-menu #message="matMenu" class="width-menu" >
+                    <div class="px-1 pt-2">
+                      <div class="d-flex justify-content-between px-2 pb-3">
+                        <span class="fw-bold mt-1"><p class="mt-1">Messages</p></span>
+                        <button type="button" class="notif-btn">1 nouveaux</button>
+                      </div>
+
+                  <div class="overflow-auto heigt-menu px-2">
+                    <table class="table table-striped ">
+
+                      <tbody >
+                        <tr *ngFor="let item of notification">
+                          <td>{{item}}</td>
+                        </tr>
+                      </tbody>
+
+                    </table>
+                  </div>
+                  </div>
+                  </mat-menu>
+               </span>
+                <span>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class=" mt-2 d-flex align-items-center justify-content-center ">
+                      <img src="./assets/Profile-admin.png" alt="" class=" w-75 " />
+                    </button>
+                    <mat-menu #menu="matMenu" class="width-menu" >
+                      <div class="px-3 pt-3">
+
+                         <div class="d-flex justify-content-between" >
+                          <span class="d-flex "><mat-icon>person</mat-icon><h5 class="mt-1 px-3 d-flex"><p class="fw-bold">Nom d'utilisateur:</p><p class="px-3">{{user_firstName}}</p></h5></span>
+                         </div>
+
+                         <div>
+                          <span class="d-flex "><mat-icon>group</mat-icon><h5 class="mt-1 px-3 d-flex"><p class="fw-bold">Groupe:</p><p class="px-3">{{user_group}}</p></h5></span>
+                         </div>
+
+                         <div>
+                          <span class="d-flex "><mat-icon>email</mat-icon><h5 class="mt-1 px-3 d-flex"><p class="fw-bold">Email:</p><p class="px-3">{{user_email}}</p></h5></span>
+                         </div>
+
+                      </div>
+                      <hr>
+                      <button mat-menu-item adf-logout>
+                        <mat-icon>exit_to_app</mat-icon>
+                        Se déconnecter
+                      </button>
+                    </mat-menu>
+                  </span>
+              </div>
+          </mat-toolbar>
+      </ng-template>
+  </adf-sidenav-layout-header>
+    <adf-sidenav-layout-navigation>
+        <ng-template let-isMenuMinimized="isMenuMinimized" let-toggleMenu="toggleMenu">
+            <mat-nav-list class="adf-sidenav-linklist">
+
+                <a mat-list-item class="adf-sidenav-link" routerLink="/home" [hidden]="user_group == 'GROUP_FINANCIERS'">
+                    <mat-icon matListIcon class="sidenav-menu-icon ">home</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()"  >Accueil</div>
+                </a>
+                <a mat-list-item class="adf-sidenav-link" routerLink="/dossiers">
+                    <mat-icon matListIcon class="sidenav-menu-icon">folder</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()">Liste des dossiers </div>
+                </a>
+                <a mat-list-item class="adf-sidenav-link" routerLink="/charges"  [hidden]="user_group  !== 'GROUP_DIRECTEURS'">
+                    <mat-icon matListIcon class="sidenav-menu-icon">supervisor_account</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()"> Liste des chargés</div>
+                </a>
+                <a mat-list-item class="adf-sidenav-link" routerLink="/tiers" [hidden]="user_group  !== 'GROUP_DIRECTEURS'">
+                    <mat-icon matListIcon class="sidenav-menu-icon" >people_outline</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()">Liste des tiers </div>
+                </a>
+                <a mat-list-item class="adf-sidenav-link" routerLink="/demande-specifique" [hidden]="(user_group == 'GROUP_FINANCIERS' || user_group == 'GROUP_DIRECTEURS')">
+                    <mat-icon matListIcon class="sidenav-menu-icon">assignment</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()" >Demande spécifique</div>
+                </a>
+                <a mat-list-item class="adf-sidenav-link" [routerLink]="['/document-node/'+folderid]" [hidden]="user_group  !== 'GROUP_DIRECTEURS'">
+                    <mat-icon matListIcon class="sidenav-menu-icon">folder_open</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()">Documents</div>
+                </a>
+                <!-- <a mat-list-item adf-logout class="adf-sidenav-link">
+                    <mat-icon matListIcon class="sidenav-menu-icon">exit_to_app</mat-icon>
+                    <div class="sidenav-menu-label" *ngIf="!isMenuMinimized()">Logout</div>
+                </a> -->
+
+
+            </mat-nav-list>
+        </ng-template>
+    </adf-sidenav-layout-navigation>
+
+    <adf-sidenav-layout-content>
+        <ng-template>
+            <router-outlet></router-outlet>
+        </ng-template>
+    </adf-sidenav-layout-content>
+
+</adf-sidenav-layout>

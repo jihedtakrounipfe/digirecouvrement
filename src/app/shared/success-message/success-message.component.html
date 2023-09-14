@@ -1,0 +1,18 @@
+<div class="text-center py-4">
+  <div class="pb-3" *ngIf="success_icon">
+    <img src="./assets/success.png" class="success">
+  </div>
+  <div class="pb-3" *ngIf="echec_icon">
+    <img src="./assets/failed.png" class="echec" >
+  </div>
+  <div class="titre">
+    <h2 mat-dialog-title> {{title_label}} </h2>
+    <!-- <h4>{{sub_title_label}}</h4> -->
+  </div>
+  <br>
+  <div>
+
+    <button mat-raised-button mat-dialog-close="true" class="ok-btn">{{button_label}}</button>
+
+  </div>
+  </div>

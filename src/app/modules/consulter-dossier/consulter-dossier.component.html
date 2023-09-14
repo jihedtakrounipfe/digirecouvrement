@@ -1,0 +1,111 @@
+<div class="px-2">
+  <div class="d-flex justify-content-between ">
+  <div class="col-md-3 px-1">
+    <mat-card-title class="pb-2">Dossier</mat-card-title>
+    <mat-card-subtitle class="py-2" *ngIf="dossierInf" >{{dossierInf.nomDossier}}</mat-card-subtitle>
+  </div>
+  <div class="col-md-6" [hidden]="session !== 'GROUP_CHARGES'">
+  <div class="alert alert-success pb-0 pt-2 px-5 w-50 text-center" role="alert" *ngIf=" typeRelanceNotificationTimer" >
+    <p *ngIf="TypeRelance == 'NotificationSerie'" class="fw-bold">Relance en série</p>
+    <p *ngIf="TypeRelance == 'NotificationParallele'" class="fw-bold">Relance en parallèle</p>
+  </div>
+  </div>
+  <div [hidden]="session !== 'GROUP_CHARGES'" class="col-md-3">
+  <div class="d-flex justify-content-between " >
+    <div class="col-md-6">
+      <button mat-button  [ngClass]="statutAppel  !=='false' ? 'disable' : 'enable' && statusPrecontentieuse  == 'Affecté' ? 'disable' : 'enable' &&   statusAmiable  == 'Traité' ? 'disable' : 'enable'"  mat-dialog-close="true" (click)="openSignaler()" class="w-100">Signaler</button>
+    </div>
+    <div class="col-md-6 px-2">
+      <button mat-button (click)="openValider()" [ngClass]="statutAppel  !=='false' ? 'disable' : 'signaler-btn' && statusPrecontentieuse  == 'Affecté' ? 'disable' : 'signaler-btn' &&   statusAmiable  == 'Traité' ? 'disable' : 'signaler-btn'"   class="w-100"> Valider </button>
+    </div>
+  </div>
+  </div>
+  </div>
+
+  <div class="d-flex justify-content-between pb-4">
+
+  <div class="col-md-9 px-1">
+    <div>
+      <mat-accordion class="example-headers-align">
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <h4 class="mt-4 fw-bold">Phase Amiable</h4>
+          </mat-expansion-panel-header>
+          <app-phase-amiable *ngIf="dossierInf" ></app-phase-amiable >
+          </mat-expansion-panel>
+
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <h4 class="mt-4 fw-bold">Phase Precontisieuse</h4>
+          </mat-expansion-panel-header>
+          <app-phase-precontisieuse *ngIf="dossierInf"></app-phase-precontisieuse>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <h4 class="mt-4 fw-bold">Phase Judiciare</h4>
+          </mat-expansion-panel-header>
+          <app-phase-judiciare *ngIf="dossierInf"></app-phase-judiciare>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </div>
+
+  </div>
+  <div class="col-md-3">
+    <mat-card>
+      <div>
+        <mat-card-title class="pb-3">Activités</mat-card-title>
+        <div>
+          <mat-card class="pb-0">
+            <mat-card-subtitle class="py-2">
+              <p>
+                Vous appelez le client Falih Abdul-Muhyi Almasi
+              </p>
+              <h4 class="fw-bold">Aujourd’hui à 13.00</h4>
+            </mat-card-subtitle>
+          </mat-card>
+        </div>
+        <br>
+        <div>
+          <mat-card class="pb-0">
+            <mat-card-subtitle class="py-2">
+              <p>
+                Vous appelez le client Falih Abdul-Muhyi Almasi
+              </p>
+              <h4 class="fw-bold">Aujourd’hui à 13.00</h4>
+            </mat-card-subtitle>
+          </mat-card>
+        </div>
+        <br>
+        <div>
+          <mat-card class="pb-0">
+            <mat-card-subtitle class="py-2">
+              <p>
+                Vous appelez le client Falih Abdul-Muhyi Almasi
+              </p>
+              <h4 class="fw-bold">Aujourd’hui à 13.00</h4>
+            </mat-card-subtitle >
+          </mat-card>
+        </div>
+        <br>
+        <div>
+          <mat-card class="pb-0">
+            <mat-card-subtitle class="py-2">
+              <p>
+                Vous appelez le client Falih Abdul-Muhyi Almasi
+              </p>
+              <h4 class="fw-bold">Aujourd’hui à 13.00</h4>
+            </mat-card-subtitle >
+          </mat-card>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+</div>
+
+
+
+

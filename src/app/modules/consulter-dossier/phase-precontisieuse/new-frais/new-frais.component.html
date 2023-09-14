@@ -1,0 +1,107 @@
+<section>
+  <form [formGroup]="New_Frais_Form">
+
+    <div class="d-flex justify-content-between">
+
+      <div class="form-group col-md-3">
+        <label class="title"><p class="fnt-size fw-bold">Nature de frais</p></label>
+        <div class="d-inline-block text-dark w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Nature" formControlName="naturefrais">
+              <mat-option *ngFor="let docs of versement" [value]="docs">{{
+                docs
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label class="title"><p class="fnt-size fw-bold">Type des frais</p></label>
+        <div class="d-inline-block text-dark w-100 px-1">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-select placeholder="Type" formControlName="typefrais">
+              <mat-option *ngFor="let docs of type" [value]="docs">{{
+                docs
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    <div class="form-group col-md-3">
+      <label class="title"><p class="fnt-size fw-bold">Tiers</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="Tiers" type="text" formControlName="tiers" />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="form-group col-md-3">
+      <label class="title"><p class="fnt-size fw-bold">Montant</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="Montant" type="text" formControlName="montants" />
+        </mat-form-field>
+      </div>
+    </div>
+
+  </div>
+  <div class="d-flex justify-content-between">
+
+    <div class="form-group col-md-3">
+      <label class="title"><p class="fnt-size fw-bold"> Reference Pv Facture </p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder=" referencePvFacture" type="text" formControlName="referencePvFacture" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label class="title"><p class="fnt-size fw-bold"> HT</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder=" HT" type="text" formControlName="HT" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label class="title"><p class="fnt-size fw-bold">TVA</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder=" TVA" type="text" formControlName="TVA" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label class="title"><p class="fnt-size fw-bold"> debours</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput placeholder="debours" type="text" formControlName="debours" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group col-md-2">
+      <label class="title"><p class="fnt-size fw-bold">Date d'effet</p></label>
+      <div class="d-inline-block text-dark w-100 px-1">
+        <mat-form-field appearance="outline" class="w-100">
+          <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR"
+            formControlName="datedeffdesir">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="col-md-1 d-flex justify-content-center">
+      <a (click)="save()" type="submit"
+        ><img src="./assets/plus.png" class="icon"
+      /></a>
+    </div>
+
+  </div>
+
+  </form>
+</section>

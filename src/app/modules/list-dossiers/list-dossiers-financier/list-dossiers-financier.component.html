@@ -1,0 +1,43 @@
+<section>
+
+<div class="pb-5">
+  <mat-card-title>Liste de Dossiers</mat-card-title>
+</div>
+
+<div class="example-container mat-elevation-z8">
+
+  <mat-table #table [dataSource]="dossier" matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="nomDossier">
+      <mat-header-cell *matHeaderCellDef> Numéro de compte </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.nomDossier}}</p></mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="nom">
+      <mat-header-cell *matHeaderCellDef> Nom et prénom </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.nom}} {{element.prenom}}</p></mat-cell>
+    </ng-container>
+    <!-- Adresse  Column -->
+    <ng-container matColumnDef="adresse">
+      <mat-header-cell *matHeaderCellDef> Adresse </mat-header-cell>
+      <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.adresse}}</p></mat-cell>
+    </ng-container>
+      <!--Affecter action Column -->
+      <ng-container matColumnDef="frais">
+        <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+       <mat-cell *matCellDef="let element"><div class="px-1"><button type="button"  mat-button   (click)="CnsulterFrais(element.nomDossier)" class="frais-btn">Consulter frais</button></div></mat-cell>
+      </ng-container>
+      <!--Signaler action Column -->
+       <ng-container matColumnDef="versement">
+       <mat-header-cell *matHeaderCellDef> </mat-header-cell>
+       <mat-cell *matCellDef="let element"><div class="px-1"><button type="button"  mat-button    (click)="CnsulterVersements(element.nomDossier)" class="versement-btn">Consulter versement</button></div></mat-cell>
+      </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[6, 10, 25, 100]"></mat-paginator>
+</div>
+</section>

@@ -1,0 +1,83 @@
+<div class="px-3">
+
+<div class="d-flex justify-content-between pb-5">
+  <div><mat-card-title>Liste des tiers</mat-card-title></div>
+  <div><button mat-button  class="save-btn" type="submit" routerLink="/new-tier" >Nouveau tiers</button></div>
+</div>
+
+<div class="example-container mat-elevation-z8 ">
+  <mat-table #table [dataSource]="tiers" matSort>
+
+      <ng-container matColumnDef="select">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+      </ng-container>
+
+       <!-- Montant Column -->
+       <ng-container matColumnDef="type">
+        <mat-header-cell *matHeaderCellDef> Type de tiers </mat-header-cell>
+        <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3"> {{element.type}}</p> </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="nomPrenom">
+       <mat-header-cell *matHeaderCellDef>  Nom et prénom</mat-header-cell>
+       <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.nom}} {{element.prenom}}</p></mat-cell>
+      </ng-container>
+
+      <!-- Adresse  Column -->
+      <ng-container matColumnDef="adresse">
+       <mat-header-cell *matHeaderCellDef> Adresse </mat-header-cell>
+       <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.adresse}}</p></mat-cell>
+      </ng-container>
+
+      <!-- Montant Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef>E-mail </mat-header-cell>
+        <mat-cell *matCellDef="let element"><p class="fnt-10 mt-3">{{element.tiersemail}}</p></mat-cell>
+      </ng-container>
+
+      <!-- Montant Column -->
+      <ng-container matColumnDef="telephone">
+        <mat-header-cell *matHeaderCellDef>Numéro de téléphone </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="overflow-horizentale">
+
+         <ul class="navbar-nav " *ngFor="let t of element.telephone.split(',')" #carousel>
+          <li class="nav-item active px-2"><button mat-raised-button class=" border text-success border-success phone-btn fnt-10"> <mat-icon class="mt-1">phone</mat-icon><span >{{ t }} </span></button></li>
+         </ul>
+
+      </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="supprimer">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <span class="px-1"><button mat-raised-button class=" w-100 btn-blue" type="button" (click)="deleteTiers(element.nom+element.prenom)">Supprimer</button></span></mat-cell>
+      </ng-container>
+
+
+       <ng-container matColumnDef="modifier">
+        <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+        <mat-cell *matCellDef="let element"> <span class="px-1"><button mat-raised-button class=" w-100 btn-blue" type="button" (click)="UpdateTiers(element.nom+element.prenom)">Modifier</button></span></mat-cell>
+      </ng-container>
+
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[7, 10, 15,20]"></mat-paginator>
+</div>
+</div>
+
+
