@@ -28,7 +28,6 @@ import { MomentDateAdapter } from '@alfresco/adf-core';
 })
 
 export class UpdateVersementComponent implements OnInit {
-
   @Output() reloadData = new EventEmitter();
   public reload:string;
   public subscription:Subscription;
@@ -115,7 +114,7 @@ export class UpdateVersementComponent implements OnInit {
     'affectation 3',
   ]
   mode:string[] = [
-    'vercement',
+    'versement',
     'chéque',
   ]
 }

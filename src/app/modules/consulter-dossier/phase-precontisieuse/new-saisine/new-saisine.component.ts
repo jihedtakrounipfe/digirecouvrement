@@ -24,8 +24,6 @@ export class NewSaisineComponent implements OnInit {
     private dossiers: ListDossiersService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-
-
   ) { }
 
 
