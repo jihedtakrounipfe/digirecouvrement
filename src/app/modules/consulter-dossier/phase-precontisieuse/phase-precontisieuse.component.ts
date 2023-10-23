@@ -115,6 +115,8 @@ Reload(event){
  }
  selectSaisine(Selected){
   console.log('Selected Saisine',Selected)
+  this.api.SetSelctedSaisine(Selected);
+  this.newItemEvent.emit(Selected)
  }
   goToLink(base64String:string){
    window.open(base64String);
