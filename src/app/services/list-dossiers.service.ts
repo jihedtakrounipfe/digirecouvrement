@@ -255,6 +255,24 @@ export class ListDossiersService {
    .pipe(catchError(this.errorMgmt));
     }
 
+  //________________________________________________________________________________________________________________________
+  // Get versement By Name
+  getsaisineName(nomDossier:string,data:string) {
+    return this.http.get(`${environment.baseUrl}/s/com/addinn/get/getsaisinenom?nomDossier=${nomDossier}&nomSaisine=${data}&alf_ticket=${this.authService.getTicketEcm()}`,{responseType: 'json'} )
+    .pipe(catchError(this.errorMgmt));
+    }
+  //Update saisine
+  updatesaisine(saisine:any,nomDossier:string,data:string){
+    console.log('service elements',saisine,nomDossier,data)
+
+    this.params = this.params.set("alf_ticket",this.authService.getTicketEcm())
+    let url = `${environment.baseUrl}/s/com/addinn/update/updatesaisine?nomDossier=${nomDossier}&nomSaisine=${data}`;
+    return this.http
+    .put(url, saisine , {params:this.params})
+    .pipe(catchError(this.errorMgmt));
+    }
+  //________________________________________________________________________________________________________________________
+
   updateTelephone(num , nomDossier){
     this.params = this.params.set("alf_ticket",this.authService.getTicketEcm())
     let url = `${environment.baseUrl}/s/com/addinn/update/updatetelephone?nomDossier=${nomDossier}`;
@@ -269,7 +287,6 @@ export class ListDossiersService {
     return this.http.put(url, codePostale , {params:this.params})
     .pipe(catchError(this.errorMgmt));
   }
-
 
   //--------------------------------------------- Error handling --------------------------------------------------------->
 

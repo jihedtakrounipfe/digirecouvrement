@@ -69,6 +69,12 @@ export class PreviewService {
     this.garantie.next(Selected);
     };
 
+    private saisine = new BehaviorSubject<string>('');
+    saisineTag = this.saisine.asObservable();
+    SetSelctedSaisine(Selected:any){
+    this.saisine.next(Selected);
+    };
+
     private fraisJudiciaire = new BehaviorSubject<string>('');
     fraisJdcTag = this.fraisJudiciaire.asObservable();
     SetSelctedFraisJdc(Selected:any){
