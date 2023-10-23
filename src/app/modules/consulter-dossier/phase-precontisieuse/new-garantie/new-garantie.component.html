@@ -4,10 +4,10 @@
 <div class="d-flex justify-content-between">
 
     <div class="form-group col-md-2">
-      <label class="title"><p class="fnt-size fw-bold">Type</p></label>
+      <label class="title"><p class="fnt-size fw-bold">Type Garantie</p></label>
       <div class="d-inline-block text-dark w-100 px-1">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-select placeholder="Nature" formControlName="typeGar">
+          <mat-select placeholder="TypeGarantie" formControlName="typeGar">
             <mat-option *ngFor="let docs of Type" [value]="docs">{{
               docs
             }}</mat-option>
@@ -17,10 +17,10 @@
     </div>
 
     <div class="form-group col-md-2">
-      <label class="title"><p class="fnt-size fw-bold">Nature</p></label>
+      <label class="title"><p class="fnt-size fw-bold">Nature Hypotheque</p></label>
       <div class="d-inline-block text-dark w-100 px-1">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-select placeholder="Créances" formControlName="natureHypotheque">
+          <mat-select placeholder="NatureHypotheque" formControlName="natureHypotheque">
             <mat-option *ngFor="let docs of  Hypotheque" [value]="docs">{{
               docs
             }}</mat-option>
@@ -34,7 +34,7 @@
       <label class="title"><p class="fnt-size fw-bold">Rang</p></label>
       <div class="d-inline-block text-dark w-100 px-1">
         <mat-form-field appearance="outline" class="w-100">
-          <input matInput placeholder="Montant" type="text" formControlName="rang" />
+          <input matInput placeholder="Rang" type="text" formControlName="rang" />
         </mat-form-field>
       </div>
     </div>
@@ -43,7 +43,7 @@
       <label class="title"><p class="fnt-size fw-bold">Immatriculation</p></label>
       <div class="d-inline-block text-dark w-100 px-1">
         <mat-form-field appearance="outline" class="w-100">
-          <input matInput placeholder="Date d’effet des IR" type="text" formControlName="immatriculation" />
+          <input matInput placeholder="Immatriculation" type="text" formControlName="immatriculation" />
         </mat-form-field>
       </div>
     </div>
@@ -56,7 +56,7 @@
           <input matInput placeholder="Montant" type="text" formControlName="datefinhypotheque" />
         </mat-form-field> -->
         <mat-form-field appearance="outline" class="w-100">
-          <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR"
+          <input matInput [matDatepicker]="picker" placeholder="DateFinHypothèque"
             formControlName="datefinhypotheque">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -72,7 +72,7 @@
     <label class="title"><p class="fnt-size fw-bold">Montant de l’hypotèque</p></label>
     <div class="d-inline-block text-dark w-100 px-1">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="Date d’effet des IR" type="text" formControlName="montanthypotheque" />
+        <input matInput placeholder="Montanthypotèque" type="text" formControlName="montanthypotheque" />
       </mat-form-field>
     </div>
   </div>
@@ -81,16 +81,17 @@
     <label class="title"><p class="fnt-size fw-bold">Valeur estimée de l’enquête</p></label>
     <div class="d-inline-block text-dark w-100 px-1">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="Montant" type="text" formControlName="valeurestimee" />
+        <input matInput placeholder="valeurEstimée" type="text" formControlName="valeurestimee" />
       </mat-form-field>
     </div>
   </div>
+
 
   <div class="form-group col-md-3">
     <label class="title"><p class="fnt-size fw-bold">Hypotèque autres banques</p></label>
     <div class="d-inline-block text-dark w-100 px-1">
       <mat-form-field appearance="outline" class="w-100">
-        <mat-select placeholder="Nature" formControlName="hypothequebanque">
+        <mat-select placeholder="hypothequebanque" formControlName="HypotèqueBanque">
           <mat-option *ngFor="let docs of Autre" [value]="docs">{{
             docs
           }}</mat-option>
@@ -103,7 +104,7 @@
     <label class="title"><p class="fnt-size fw-bold">Bénéficiaire de l’hypotèque</p></label>
     <div class="d-inline-block text-dark w-100 px-1">
       <mat-form-field appearance="outline" class="w-100">
-        <input matInput placeholder="Montant" type="text" formControlName="beneficiairehypotheque" />
+        <input matInput placeholder="BénéficiaireHypotheque" type="text" formControlName="beneficiairehypotheque" />
       </mat-form-field>
     </div>
   </div>

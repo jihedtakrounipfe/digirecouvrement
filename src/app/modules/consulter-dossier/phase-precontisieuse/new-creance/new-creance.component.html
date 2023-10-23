@@ -45,8 +45,7 @@
           <input matInput placeholder="Date d’effet des IR" type="text" formControlName="datedeffdesir" />
         </mat-form-field> -->
         <mat-form-field appearance="outline" class="w-100">
-          <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR"
-            formControlName="datedeffdesir">
+          <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR" formControlName="datedeffdesir" (dateChange)="onDateChange($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

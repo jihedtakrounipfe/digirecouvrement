@@ -2,12 +2,13 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { PreviewService } from 'app/services/preview.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { ListDossiersService } from 'app/services/list-dossiers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from 'app/shared/success-message/success-message.component';
 import { MomentDateAdapter } from '@alfresco/adf-core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -47,6 +48,16 @@ export class NewCreanceComponent implements OnInit {
     datedeffdesir: new FormControl("", [ Validators.required, Validators.minLength(3) ]),
 
   });
+
+   // This function will be called when the date is changed
+   onDateChange(event: MatDatepickerInputEvent<Date>) {
+    if (event.value) {
+      const selectedDate = new Date(event.value);
+      selectedDate.setDate(selectedDate.getDate() + 1); // Add one day
+
+      this.New_Crance_Form.controls.datedeffdesir.setValue(selectedDate.toISOString());
+    }
+  }
 
   public save() {
 

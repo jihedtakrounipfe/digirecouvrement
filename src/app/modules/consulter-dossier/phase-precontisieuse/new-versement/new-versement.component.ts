@@ -85,7 +85,7 @@ export class NewVersementComponent implements OnInit {
       'affectation 3',
     ]
     mode:string[] = [
-      'vercement',
+      'versement',
       'chéque',
     ]
 }
