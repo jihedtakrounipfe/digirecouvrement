@@ -87,7 +87,7 @@ export class UpdateSaisineComponent implements OnInit {
       height: '300px',
       data:{
         title_label: 'Succès',
-        sub_title_label: 'Saisine a été ajouté avec succès',
+        sub_title_label: 'Saisine a été Modifié avec succès',
         button_label: 'Ok',
         success_icon:true,
         echec_icon:false
