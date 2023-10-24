@@ -78,7 +78,7 @@ export class UpdateVersementComponent implements OnInit {
     if (!this.updateForm.valid) {
       return false;
     } else {
-      if (window.confirm('Are you sure?')) {
+      if (window.confirm('Es-tu sûr?')) {
 
         this.dossiers.updateVersement( this.updateForm.value ,this.nomDossier ,this.versement ).subscribe({
           complete: () => {

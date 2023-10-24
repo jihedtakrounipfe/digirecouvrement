@@ -59,7 +59,7 @@ export class UpdateSaisineComponent implements OnInit {
 
   });
 
-  onSubmit() {
+  save() {
     this.submitted = true;
     if (!this.updateForm.valid) {
       return false;
