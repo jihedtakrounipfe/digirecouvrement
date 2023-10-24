@@ -59,7 +59,7 @@ export class FinancierModalComponent implements OnInit {
     HT: new FormControl("", [Validators.required]),
     TVA: new FormControl("", [Validators.required]),
     debours: new FormControl("", [Validators.required]),
-    datedeffdesir: new FormControl("", [Validators.required]),
+    datedeffdesir: new FormControl("0000-00-00T00:00:00Z", [Validators.required]),
   });
 
   Versement_Form = new FormGroup({
