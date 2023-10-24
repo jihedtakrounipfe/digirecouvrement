@@ -22,6 +22,7 @@ export class FinancierModalComponent implements OnInit {
   public frais:Boolean;
   public minDate: Date;
   public FormData:FormData;
+  public formattedDate: string = new Date().toISOString();
   constructor(
   public dialog: MatDialog,
   @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,6 +36,7 @@ export class FinancierModalComponent implements OnInit {
     console.log('date',currentYear, currentmonth, currentDay)
     this.minDate = new Date(currentYear, currentmonth-1, currentDay);
     console.log('mindate',this.minDate)
+
   }
 
   ngOnInit(): void {
@@ -48,7 +50,6 @@ export class FinancierModalComponent implements OnInit {
     console.log(this.frais)
     console.log(this.versement)
     console.log(this.phase)
-
   }
   frais_Form = new FormGroup({
     naturefrais: new FormControl("", [Validators.required]),
@@ -59,7 +60,7 @@ export class FinancierModalComponent implements OnInit {
     HT: new FormControl("", [Validators.required]),
     TVA: new FormControl("", [Validators.required]),
     debours: new FormControl("", [Validators.required]),
-    datedeffdesir: new FormControl("0000-00-00T00:00:00Z", [Validators.required]),
+    datedeffdesir: new FormControl(this.formattedDate, [Validators.required]),
   });
 
   Versement_Form = new FormGroup({
