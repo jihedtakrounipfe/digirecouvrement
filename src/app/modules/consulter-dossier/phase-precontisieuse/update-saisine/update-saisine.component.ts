@@ -42,8 +42,8 @@ export class UpdateSaisineComponent implements OnInit {
           this.updateForm.setValue({
             nomsaisine:data["nomsaisine"],
             region:data["region"],
-            typetiers:data["typetiers"],
-            nomtiers:data["nomtiers"],
+            typeDeTiers:data["typeDeTiers"],
+            nomDeTiers:data["nomDeTiers"],
             piecejointe:data["piecejointe"],
             });
           });
