@@ -24,7 +24,7 @@ export class UpdateSaisineComponent implements OnInit {
   submitted = false;
   param: number;
   saisine:string;
-
+  //setdata:any;
   constructor(
     private api:PreviewService,
     private dossiers: ListDossiersService,
@@ -37,7 +37,7 @@ export class UpdateSaisineComponent implements OnInit {
         //subscriptions by BehaviorSubject
         this.subscription= this.api.saisineTag.subscribe((data:any)=>{  data; console.log('selected elements',this.saisine = data ,this.nomDossier)
         //subscriptions by nomEcheancier
-        this.dossiers.getCreancebyName(this.nomDossier , this.saisine).subscribe((data) => {
+        this.dossiers.getsaisineName(this.nomDossier , this.saisine).subscribe((data) => {
           console.log('saisine by id',this.saisine)
           this.updateForm.setValue({
             nomsaisine:data["nomsaisine"],
@@ -64,7 +64,7 @@ export class UpdateSaisineComponent implements OnInit {
     if (!this.updateForm.valid) {
       return false;
     } else {
-      if (window.confirm('Are you sure?')) {
+      if (window.confirm('Es-tu sûr?')) {
 
         this.dossiers.updateCreance( this.updateForm.value ,this.nomDossier ,this.saisine ).subscribe({
           complete: () => {

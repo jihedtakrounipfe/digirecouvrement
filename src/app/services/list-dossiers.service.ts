@@ -263,7 +263,7 @@ export class ListDossiersService {
     }
   //Update saisine
   updatesaisine(saisine:any,nomDossier:string,data:string){
-    console.log('service elements',saisine,nomDossier,data)
+    console.log('service saisine elements',saisine,nomDossier,data)
 
     this.params = this.params.set("alf_ticket",this.authService.getTicketEcm())
     let url = `${environment.baseUrl}/s/com/addinn/update/updatesaisine?nomDossier=${nomDossier}&nomSaisine=${data}`;
