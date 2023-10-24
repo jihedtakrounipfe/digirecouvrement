@@ -254,9 +254,8 @@ export class ListDossiersService {
    .put(url, frais , {params:this.params})
    .pipe(catchError(this.errorMgmt));
     }
-
   //________________________________________________________________________________________________________________________
-  // Get versement By Name
+  // Get saisine By Name
   getsaisineName(nomDossier:string,data:string) {
     return this.http.get(`${environment.baseUrl}/s/com/addinn/get/getsaisinenom?nomDossier=${nomDossier}&nomSaisine=${data}&alf_ticket=${this.authService.getTicketEcm()}`,{responseType: 'json'} )
     .pipe(catchError(this.errorMgmt));
