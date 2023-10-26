@@ -65,7 +65,7 @@ export class ListChargeService {
   updateChargeDispo( nom , data ): Observable<any> {
     console.log(nom,'id chargé')
     this.params = this.params.set("alf_ticket",this.authService.getTicketEcm()).set("include","properties")
-    let url = `${environment.baseUrl}/s/com/addinn/remplacerchargee?nomchargee=${nom}`;
+    let url = `${environment.baseUrl}/s/com/addinn/updatecharge?nomchargee=${nom}`;
     return this.http.put(url, data, {params:this.params}).pipe(catchError(this.errorMgmt));
   }
   // Update

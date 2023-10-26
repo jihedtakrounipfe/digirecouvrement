@@ -112,6 +112,21 @@ key
   }
 
   public save() {
+    const updatedDispo = {
+      properties: {
+                   "chm:disponibilite": this.New_Charge_Form.value['chm:disponibilite']
+                  },
+      };
+    this.ChargeApi.updateChargeDispo(this.id , updatedDispo ).subscribe({
+      complete: () => {
+        console.log('Chergé successfully updated!'),
+        this.ngZone.run(() => this.router.navigateByUrl('/charges'));
+      },
+      error: (e) => {
+        console.log(e);
+      },
+    });
+
     console.log('datepicker',this.New_Charge_Form.value['chm:dateDeLaProchaineDisponibilite']);
     console.log(this.New_Charge_Form.value ,'form data')
 
@@ -142,14 +157,6 @@ key
       };
       console.log(updated ,'custom form data')
 
-      const updatedDispo = {
-        properties: {
-                     "chm:disponibilite": this.New_Charge_Form.value['chm:disponibilite']
-                    },
-        };
-
-
-
     this.submitted = true;
     console.log(this.New_Charge_Form.invalid,'invalid');
     if (this.New_Charge_Form.invalid) {
@@ -157,16 +164,6 @@ key
        console.log('form Non valid!');
     }
     else{
-      this.ChargeApi.updateChargeDispo(this.id , updatedDispo ).subscribe({
-        complete: () => {
-          console.log('Chergé successfully updated!'),
-          this.ngZone.run(() => this.router.navigateByUrl('/charges'));
-        },
-        error: (e) => {
-          console.log(e);
-        },
-      });
-
       this.ChargeApi.updateCharge(this.id , updated ).subscribe({
         complete: () => {
           console.log('Chergé successfully updated!'),
