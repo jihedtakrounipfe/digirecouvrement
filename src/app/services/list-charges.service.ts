@@ -62,6 +62,12 @@ export class ListChargeService {
     return this.http.put(url, data, {params:this.params}).pipe(catchError(this.errorMgmt));
   }
 
+  updateChargeDispo( nom , data ): Observable<any> {
+    console.log(nom,'id chargé')
+    this.params = this.params.set("alf_ticket",this.authService.getTicketEcm()).set("include","properties")
+    let url = `${environment.baseUrl}/s/com/addinn/remplacerchargee?nomchargee=${nom}`;
+    return this.http.put(url, data, {params:this.params}).pipe(catchError(this.errorMgmt));
+  }
   // Update
   RemplacerCharge( nom , data ): Observable<any> {
     console.log(nom,'id new chargé')
