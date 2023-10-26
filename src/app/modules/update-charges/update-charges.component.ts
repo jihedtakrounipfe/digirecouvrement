@@ -113,9 +113,7 @@ key
 
   public save() {
     const updatedDispo = {
-      properties: {
                    "chm:disponibilite": this.New_Charge_Form.value['chm:disponibilite']
-                  },
       };
     this.ChargeApi.updateChargeDispo(this.id , updatedDispo ).subscribe({
       complete: () => {
