@@ -53,7 +53,7 @@ export class NewVersementComponent implements OnInit {
   });
 
   public save() {
-    console.log('Echeancier form content',this.New_Versement_Form.value,this.nomDossier);
+    console.log('Versement form content',this.New_Versement_Form.value,this.nomDossier);
     this.dossiers.CreateVersemntPrecontent(this.New_Versement_Form.value,this.nomDossier).subscribe({
       complete: () => {
         console.log('Echeancier successfully created!');

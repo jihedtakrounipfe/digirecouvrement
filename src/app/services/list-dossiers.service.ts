@@ -130,13 +130,12 @@ export class ListDossiersService {
     return this.http.post( url, data,).pipe(catchError(this.errorMgmt));
   }
 
-  // Create Versement
+  // Create Versemnt Precontent
   CreateVersemntPrecontent(data,nomDossier): Observable<any> {
     let url = `${environment.baseUrl}/s/com/addinn/post/postVersementPrecontent?nomDossier=${nomDossier}&alf_ticket=${this.authService.getTicketEcm()}`;
     console.log('service data',data)
     return this.http.post( url, data,).pipe(catchError(this.errorMgmt));
   }
-
   // Create Frais
   CreateFrais(data,nomDossier): Observable<any> {
     let url = `${environment.baseUrl}/s/com/addinn/post/postfraisprecontent?nomDossier=${nomDossier}&alf_ticket=${this.authService.getTicketEcm()}`;
