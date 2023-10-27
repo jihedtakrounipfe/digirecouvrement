@@ -112,18 +112,18 @@ key
   }
 
   public save() {
-    const updatedDispo = {
-                   "disponibilite": this.New_Charge_Form.value['chm:disponibilite']
-      };
-    this.ChargeApi.updateChargeDispo(this.id , updatedDispo ).subscribe({
-      complete: () => {
-        console.log('Chergé successfully updated!'),
-        this.ngZone.run(() => this.router.navigateByUrl('/charges'));
-      },
-      error: (e) => {
-        console.log(e);
-      },
-    });
+    // const updatedDispo = {
+    //                "disponibilite": this.New_Charge_Form.value['chm:disponibilite']
+    //   };
+    // this.ChargeApi.updateChargeDispo(this.id , updatedDispo ).subscribe({
+    //   complete: () => {
+    //     console.log('Chergé successfully updated!'),
+    //     this.ngZone.run(() => this.router.navigateByUrl('/charges'));
+    //   },
+    //   error: (e) => {
+    //     console.log(e);
+    //   },
+    // });
 
     console.log('datepicker',this.New_Charge_Form.value['chm:dateDeLaProchaineDisponibilite']);
     console.log(this.New_Charge_Form.value ,'form data')
