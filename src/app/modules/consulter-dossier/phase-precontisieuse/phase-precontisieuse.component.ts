@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer } from '@angular/platform-browser';
-
+import { environment } from './../../../../../environments/environment';
+import { AuthenticationService } from '@alfresco/adf-core';
 
 @Component({
   selector: 'app-phase-precontisieuse',
@@ -18,11 +19,13 @@ export class PhasePrecontisieuseComponent implements OnInit {
   @ViewChild (MatPaginator) paginator: MatPaginator;
   public displayedTabColumns: string[] = ['periodicite','montant','datePremiereEchiancier'];
   public displayeCreancesTab: string[] = ['select','creances','montant','nature','datedeffdesir'];
-  public displayVrsementTab: string[] = ['select','nomVersement' , 'dateVersement' ,'montantVersement', 'modeReglement' , 'affectaion'];
+  public displayVrsementTab: string[] = ['select','nomVersement' , 'dateVersement' ,'montantVersement', 'modeReglement' , 'affectaion','telecharger'];
   public displayFraisTab: string[] = ['select','fraisprecont','naturefrais' , 'typefrais' ,'tier', 'montants','datedeffdesir'];
   public displayGarantiesTab: string[] = ['select','typeGar','natureHypotheque','Rang','immatriculation','dateFinDeLHypotheque','montantDeLHypotheque','valeurEstimee','hypthequebanques','beneficiairehypotheque'];
-  public displaySaisineTab: string[] = ['select','nomsaisine','region','typeDeTiers','nomDeTiers','piecejointe'];
+  public displaySaisineTab: string[] = ['select','nomsaisine','region','typeDeTiers','nomDeTiers','piecejointe','nompiecejointe'];
   public nomDossier = this.route.snapshot.params.nomDossier;
+  public baseUrl=`${environment.baseUrl}`
+  public ticket=`?alf_ticket=${this.authService.getTicketEcm()}`
   public precontisieuse:string;
   public session: string;
   public creance:any;
@@ -53,7 +56,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
   public add4:boolean = false;
   public updateForm4:boolean = false;
 
-  constructor(private dossiers : ListDossiersService, private api: PreviewService ,private route: ActivatedRoute,private sanitizer: DomSanitizer) { }
+  constructor(private dossiers : ListDossiersService, private api: PreviewService ,private route: ActivatedRoute,private sanitizer: DomSanitizer, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     //subscriptions by BehaviorSubject

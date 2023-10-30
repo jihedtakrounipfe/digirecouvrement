@@ -66,6 +66,7 @@
             <mat-cell *matCellDef="let creance"> {{creance.datedeffdesir | date: 'dd/MM/yyyy'}} </mat-cell>
            </ng-container>
 
+
         <mat-header-row *matHeaderRowDef="displayeCreancesTab"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayeCreancesTab;"></mat-row>
 
@@ -138,6 +139,17 @@
           <mat-cell *matCellDef="let element"> {{ element.affectaion }} </mat-cell>
         </ng-container>
 
+          <!-- Name Column -->
+          <ng-container matColumnDef="telecharger">
+            <mat-header-cell *matHeaderCellDef> Telecharger fichier </mat-header-cell>
+            <mat-cell *matCellDef="let element" >
+              <div class="px-4">
+              <a href="{{baseUrl}}{{element.telecharger}}{{ticket}}">
+                <mat-icon class="action-icon" >cloud_download</mat-icon>
+              </a>
+            </div>
+            </mat-cell>
+          </ng-container>
 
         <mat-header-row *matHeaderRowDef="displayVrsementTab"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayVrsementTab;"></mat-row>
@@ -391,10 +403,17 @@
            <mat-cell *matCellDef="let saisine"> {{saisine.nomDeTiers}} </mat-cell>
           </ng-container>
 
-          <!-- date Premiere Echiancier Column -->
-          <ng-container matColumnDef="piecejointe">
-           <mat-header-cell *matHeaderCellDef>  Piece jointe</mat-header-cell>
-           <mat-cell *matCellDef="let saisine"><a (click)="goToLink(saisine.piecejointe)"><img src="./assets/pdf-file.png"></a> </mat-cell>
+
+          <ng-container matColumnDef="telecharger">
+            <mat-header-cell *matHeaderCellDef> Telecharger fichier </mat-header-cell>
+            <mat-cell *matCellDef="let saisine" >
+              <div class="px-4">
+              <a href="{{baseUrl}}{{saisine.piecejointe}}{{ticket}}">
+                <mat-icon class="action-icon" >cloud_download</mat-icon>
+              </a>
+            </div>
+            </mat-cell>
+            <mat-cell *matCellDef="let saisine"> {{saisine.piecejointeName}} </mat-cell>
           </ng-container>
 
         <mat-header-row *matHeaderRowDef="displaySaisineTab"></mat-header-row>
