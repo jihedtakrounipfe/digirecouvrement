@@ -5,9 +5,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UploadFileModalComponent } from '../upload-file-modal/upload-file-modal.component';
 
 @Component({
-  selector: 'app-financier-modal',
-  templateUrl: './financier-modal.component.html',
-  styleUrls: ['./financier-modal.component.scss'],
+  selector: 'app-saisine-modal',
+  templateUrl: './saisine-modal.component.html',
+  styleUrls: ['./saisine-modal.component.scss'],
 
 })
 export class SaisineModalComponent implements OnInit {

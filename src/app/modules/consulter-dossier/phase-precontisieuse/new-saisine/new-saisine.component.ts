@@ -3,11 +3,11 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ListDossiersService } from 'app/services/list-dossiers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from 'app/shared/success-message/success-message.component';
-import { PreviewService } from 'app/services/preview.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http'; // Add HttpClient
-import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 import { UploadFileModalComponent } from 'app/shared/upload-file-modal/upload-file-modal.component';
+import { PreviewService } from 'app/services/preview.service';
 
 @Component({
   selector: 'app-new-saisine',
@@ -25,14 +25,18 @@ export class NewSaisineComponent implements OnInit {
   public erreur: string;
   public frais: Boolean;
   public minDate: Date;
-  public FormData: FormData = new FormData(); // Initialize FormData
+  public FormData: FormData = new FormData();
+  public nomDossier: string; // Declare nomDossier here
   submitted: boolean;
 
   constructor(
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public SaisineModal: MatDialogRef<NewSaisineComponent>,
-    private http: HttpClient // Add HttpClient
+    private dossiers: ListDossiersService,
+    private route: ActivatedRoute, // Inject ActivatedRoute
+    private api: PreviewService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -50,7 +54,7 @@ export class NewSaisineComponent implements OnInit {
     region: new FormControl('', [Validators.required]),
     typeDeTiers: new FormControl('', [Validators.required]),
     nomDeTiers: new FormControl('', [Validators.required]),
-    formData: new FormControl(null, [Validators.required]), // This field is for the file
+    formData: new FormControl(null, [Validators.required]),
   });
 
   colsePopup() {
@@ -63,30 +67,33 @@ export class NewSaisineComponent implements OnInit {
       return false;
     } else {
       if (window.confirm('Es-tu sûr?')) {
-        const formData = new FormData();
-        formData.append('nomsaisine', this.Saisine_Form.get('nomsaisine').value);
-        formData.append('region', this.Saisine_Form.get('region').value);
-        formData.append('typeDeTiers', this.Saisine_Form.get('typeDeTiers').value);
-        formData.append('nomDeTiers', this.Saisine_Form.get('nomDeTiers').value);
-        formData.append('formData', this.Saisine_Form.get('formData').value);
-
-        // Use HttpClient to post the data to the server
-        this.http.post('your_server_endpoint_here', formData).subscribe({
+        this.dossiers.CreateSaisine(this.Saisine_Form.get('formData').value, this.nomDossier).subscribe({
           complete: () => {
             this.OpenSuccessDialog();
-            this.SaisineModal.close(); // Close the dialog
+            this.SaisineModal.close();
             console.log('Saisine created successfully!');
           },
           error: (e) => {
-            // Handle the error
+            this.api.OpenEchecDialog();
             console.error(e);
           },
         });
       }
     }
   }
+
   OpenSuccessDialog() {
-    throw new Error('Method not implemented.');
+    this.dialog.open(SuccessMessageComponent, {
+      width: '600px',
+      height: '300px',
+      data: {
+        title_label: 'Succès',
+        sub_title_label: 'Saisine a été créée avec succès',
+        button_label: 'Ok',
+        success_icon: true,
+        echec_icon: false,
+      },
+    });
   }
 
   Type: string[] = ['Ben Arous', 'Sousse', 'Gafsa'];
@@ -101,7 +108,7 @@ export class NewSaisineComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((Myfile) => {
       console.log(Myfile, 'after close popup file');
-      this.Saisine_Form.get('formData').setValue(Myfile); // Set the selected file in the form control
+      this.Saisine_Form.get('formData').setValue(Myfile);
     });
   }
 }

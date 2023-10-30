@@ -150,12 +150,13 @@ export class ListDossiersService {
     return this.http.post( url, data,).pipe(catchError(this.errorMgmt));
   }
 
-  // Create Garantie
-  CreateSaisine(data,nomDossier): Observable<any> {
+  // Create Saisine
+  CreateSaisine(formData: FormData, nomDossier: string): Observable<any> {
     let url = `${environment.baseUrl}/s/com/addinn/post/postsaisine?nomDossier=${nomDossier}&alf_ticket=${this.authService.getTicketEcm()}`;
-    console.log('service data',data)
-    return this.http.post( url, data,).pipe(catchError(this.errorMgmt));
+    console.log('service data', formData);
+    return this.http.post(url, formData).pipe(catchError(this.errorMgmt));
   }
+
 
   // Create Detail
   CreateDetail(data,nomDossier): Observable<any> {
@@ -268,15 +269,15 @@ export class ListDossiersService {
     .pipe(catchError(this.errorMgmt));
     }
   //Update saisine
-  updateSaisine(saisine:any,nomDossier:string,data:string){
-    console.log('service elements',saisine,nomDossier,data)
+  updateSaisine(formData: FormData, nomDossier: string, data: string) {
+    console.log('service elements', formData, nomDossier, data);
 
-    this.params = this.params.set("alf_ticket",this.authService.getTicketEcm())
+    this.params = this.params.set("alf_ticket", this.authService.getTicketEcm());
     let url = `${environment.baseUrl}/s/com/addinn/update/updatesaisine?nomDossier=${nomDossier}&nomSaisine=${data}`;
     return this.http
-    .put(url, saisine , {params:this.params})
-    .pipe(catchError(this.errorMgmt));
-    }
+      .put(url, formData, { params: this.params })
+      .pipe(catchError(this.errorMgmt));
+  }
   //________________________________________________________________________________________________________________________
 
   updateTelephone(num , nomDossier){
