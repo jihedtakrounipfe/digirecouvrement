@@ -6,8 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { DomSanitizer } from '@angular/platform-browser';
-import { environment } from './../../../../../environments/environment';
 import { AuthenticationService } from '@alfresco/adf-core';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-phase-precontisieuse',
