@@ -1,94 +1,70 @@
-import { Component, OnInit, EventEmitter, Output, Inject, ViewChild } from '@angular/core';
+import { UploadFileModalComponent } from './../../../../shared/upload-file-modal/upload-file-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ListDossiersService } from 'app/services/list-dossiers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from 'app/shared/success-message/success-message.component';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { UploadFileModalComponent } from 'app/shared/upload-file-modal/upload-file-modal.component';
 import { PreviewService } from 'app/services/preview.service';
 
 @Component({
   selector: 'app-new-saisine',
   templateUrl: './new-saisine.component.html',
-  styleUrls: ['./new-saisine.component.css'],
+  styleUrls: ['./new-saisine.component.css']
 })
 export class NewSaisineComponent implements OnInit {
-  public title_label: string = '';
-  public sub_title_label: string = '';
-  public button_label_1: string = '';
-  public button_label_2: string = '';
-  public phase: string;
-  public saisine: boolean;
-  public error: boolean;
-  public erreur: string;
-  public frais: Boolean;
-  public minDate: Date;
-  public FormData: FormData = new FormData();
-  public nomDossier: string; // Declare nomDossier here
-  submitted: boolean;
+  @Output() reloadData = new EventEmitter();
+  public url: string;
+  public file: string;
+  public reload: string;
+  public nomDossier = this.route.snapshot.params.nomDossier;
 
   constructor(
-    public dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    public SaisineModal: MatDialogRef<NewSaisineComponent>,
-    private dossiers: ListDossiersService,
-    private route: ActivatedRoute, // Inject ActivatedRoute
     private api: PreviewService,
-    private http: HttpClient
+    private dossiers: ListDossiersService,
+    public dialog: MatDialog,
+    private route: ActivatedRoute,
   ) {}
 
-  ngOnInit(): void {
-    this.title_label = this.data.title_label;
-    this.button_label_1 = this.data.button_label_1;
-    this.button_label_2 = this.data.button_label_2;
-    this.saisine = this.data.saisine;
-    this.phase = this.data.phase;
-    console.log(this.saisine);
-    console.log(this.phase);
-  }
+  ngOnInit(): void {}
 
-  Saisine_Form = new FormGroup({
-    nomsaisine: new FormControl('', [Validators.required]),
-    region: new FormControl('', [Validators.required]),
-    typeDeTiers: new FormControl('', [Validators.required]),
-    nomDeTiers: new FormControl('', [Validators.required]),
-    formData: new FormControl(null, [Validators.required]),
+  New_Saisine_Form = new FormGroup({
+    nomsaisine: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    region: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    typeDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nomDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    formData: new FormControl(null, [Validators.required]), // Remove the minLength(3) for file field
   });
 
-  colsePopup() {
-    this.SaisineModal.close();
+  public save() {
+    const formData = new FormData();
+
+    formData.append('nomsaisine', this.New_Saisine_Form.value.nomsaisine);
+    formData.append('region', this.New_Saisine_Form.value.region);
+    formData.append('typeDeTiers', this.New_Saisine_Form.value.typeDeTiers);
+    formData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
+    formData.append('file', this.New_Saisine_Form.value.formData);
+
+    this.dossiers.CreateSaisine(formData, this.nomDossier).subscribe({
+      complete: () => {
+        console.log('Saisine successfully created!');
+        this.OpenSuccessDialog();
+        this.reloadData.emit(this.reload);
+      },
+      error: (e) => {
+        console.log(e);
+        this.api.OpenEchecDialog();
+      },
+    });
   }
 
-  OnSubmitSaisine() {
-    this.submitted = true;
-    if (!this.Saisine_Form.valid) {
-      return false;
-    } else {
-      if (window.confirm('Es-tu sûr?')) {
-        this.dossiers.CreateSaisine(this.Saisine_Form.get('formData').value, this.nomDossier).subscribe({
-          complete: () => {
-            this.OpenSuccessDialog();
-            this.SaisineModal.close();
-            console.log('Saisine created successfully!');
-          },
-          error: (e) => {
-            this.api.OpenEchecDialog();
-            console.error(e);
-          },
-        });
-      }
-    }
-  }
-
-  OpenSuccessDialog() {
+  public OpenSuccessDialog() {
     this.dialog.open(SuccessMessageComponent, {
       width: '600px',
       height: '300px',
       data: {
         title_label: 'Succès',
-        sub_title_label: 'Saisine a été créée avec succès',
+        sub_title_label: 'Saisine a été ajouté avec succès',
         button_label: 'Ok',
         success_icon: true,
         echec_icon: false,
@@ -96,19 +72,23 @@ export class NewSaisineComponent implements OnInit {
     });
   }
 
-  Type: string[] = ['Ben Arous', 'Sousse', 'Gafsa'];
-  Autre: string[] = ['Avocat', 'Huissier'];
+  public onFileChange(event: any): void {
+    const file = event.target.files[0];
+    this.New_Saisine_Form.patchValue({ formData: file });
+  }
 
   public openModal() {
-    const dialogRef = this.dialog.open(UploadFileModalComponent, {
-      data: { name: 'upload File' },
-      width: '700px',
-      height: '480px',
-      disableClose: true,
-    });
-    dialogRef.afterClosed().subscribe((Myfile) => {
-      console.log(Myfile, 'after close popup file');
-      this.Saisine_Form.get('formData').setValue(Myfile);
+    const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
+    dialogRef.afterClosed().subscribe((submit) => {
+      if (submit) {
+        this.New_Saisine_Form.patchValue({ formData: submit });
+        console.log('Selected file:', submit.name);
+      } else {
+        this.file = 'Nothing...';
+      }
     });
   }
+
+  Type: string[] = ['Ben Arous', 'Sousse', 'Gafsa'];
+  Autre: string[] = ['Avocat', 'Huissier'];
 }

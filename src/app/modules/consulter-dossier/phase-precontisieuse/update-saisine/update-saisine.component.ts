@@ -1,3 +1,5 @@
+import { UploadFileModalComponent } from './../../../../shared/upload-file-modal/upload-file-modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { ListDossiersService } from 'app/services/list-dossiers.service';
@@ -5,20 +7,19 @@ import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from 'app/shared/success-message/success-message.component';
 import { PreviewService } from 'app/services/preview.service';
-import { HttpClient } from '@angular/common/http';
-import { UploadFileModalComponent } from 'app/shared/upload-file-modal/upload-file-modal.component';
-import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-update-saisine',
   templateUrl: './update-saisine.component.html',
-  styleUrls: ['./update-saisine.component.css'],
+  styleUrls: ['./update-saisine.component.css']
 })
+
 export class UpdateSaisineComponent implements OnInit {
   @Output() reloadData = new EventEmitter();
   public reload: string;
   public subscription: Subscription;
   public url: string;
-  public file: File | null = null; // Updated to accept a File
+  public file: string;
   public nomDossier = this.route.snapshot.params.nomDossier;
   submitted = false;
   param: number;
@@ -29,50 +30,47 @@ export class UpdateSaisineComponent implements OnInit {
     private dossiers: ListDossiersService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
     this.subscription = this.api.saisineTag.subscribe((data: any) => {
       data;
-      console.log('selected elements', (this.saisine = data), this.nomDossier);
+      console.log('selected elements', this.saisine = data, this.nomDossier);
 
       this.dossiers.getSaisineName(this.nomDossier, this.saisine).subscribe((data) => {
         console.log('saisine by id', this.saisine);
         this.updateForm.setValue({
-          nomsaisine: data['nomsaisine'],
-          region: data['region'],
-          typeDeTiers: data['typeDeTiers'],
-          nomDeTiers: data['nomDeTiers'],
-          formData: this.file,
+          nomsaisine: data["nomsaisine"],
+          region: data["region"],
+          typeDeTiers: data["typeDeTiers"],
+          nomDeTiers: data["nomDeTiers"],
         });
       });
     });
   }
 
   updateForm = new FormGroup({
-    nomsaisine: new FormControl('', [Validators.required]),
-    region: new FormControl('', [Validators.required]),
-    typeDeTiers: new FormControl('', [Validators.required]),
-    nomDeTiers: new FormControl('', [Validators.required]),
-    formData: new FormControl(''), // This field is for the file
+    nomsaisine: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    region: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    typeDeTiers: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    nomDeTiers: new FormControl("", [Validators.required, Validators.minLength(3)]),
+    formData: new FormControl(null, [Validators.required]),
   });
 
-  // Update the save function to handle file uploads with FormData
-  onSubmit() {
+  public save() {
     this.submitted = true;
     if (!this.updateForm.valid) {
       return false;
     } else {
       if (window.confirm('Es-tu sûr?')) {
         const formData = new FormData();
-        formData.append('nomsaisine', this.updateForm.get('nomsaisine')!.value);
-        formData.append('region', this.updateForm.get('region')!.value);
-        formData.append('typeDeTiers', this.updateForm.get('typeDeTiers')!.value);
-        formData.append('nomDeTiers', this.updateForm.get('nomDeTiers')!.value);
-        formData.append('formData', this.file!); // Append the file
+        formData.append('nomsaisine', this.updateForm.value.nomsaisine);
+        formData.append('region', this.updateForm.value.region);
+        formData.append('typeDeTiers', this.updateForm.value.typeDeTiers);
+        formData.append('nomDeTiers', this.updateForm.value.nomDeTiers);
+        formData.append('file', this.updateForm.value.formData);
 
-        this.dossiers.updateSaisine(formData, this.nomDossier, this.saisine).subscribe({
+        this.dossiers.updateCreance(formData, this.nomDossier, this.saisine).subscribe({
           complete: () => {
             this.OpenSuccessDialog();
             this.reloadData.emit(this.reload);
@@ -85,11 +83,6 @@ export class UpdateSaisineComponent implements OnInit {
         });
       }
     }
-  }
-
-  // Handle file selection
-  onFileSelected(event: any) {
-    this.file = event.target.files[0];
   }
 
   public OpenSuccessDialog() {
@@ -107,19 +100,27 @@ export class UpdateSaisineComponent implements OnInit {
   }
 
   public openModal() {
-    const dialogRef = this.dialog.open(UploadFileModalComponent, {
-      data: { name: this.nomDossier },
-      width: '600px',
-      height: '350px',
-      disableClose: true,
-    });
+    const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
     dialogRef.afterClosed().subscribe((submit) => {
       if (submit) {
+        const formData = new FormData();
         this.file = submit;
+        formData.append('file', this.file);
+        this.updateForm.patchValue({ formData: formData });
+        console.log('File selected:', this.file);
+      } else {
+        this.file = 'Nothing...';
       }
     });
   }
 
-  Type: string[] = ['Ben Arous', 'Sousse', 'Gafsa'];
-  Autre: string[] = ['Avocat', 'Huissier'];
+  Type: string[] = [
+    'Ben Arous',
+    'Sousse',
+    'Gafsa'
+  ]
+  Autre: string[] = [
+    'Avocat',
+    'Huissier',
+  ]
 }

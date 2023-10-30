@@ -4,7 +4,7 @@ import { HttpErrorResponse, HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { AuthenticationService } from '@alfresco/adf-core';
-
+import { HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
@@ -154,7 +154,11 @@ export class ListDossiersService {
   CreateSaisine(formData: FormData, nomDossier: string): Observable<any> {
     let url = `${environment.baseUrl}/s/com/addinn/post/postsaisine?nomDossier=${nomDossier}&alf_ticket=${this.authService.getTicketEcm()}`;
     console.log('service data', formData);
-    return this.http.post(url, formData).pipe(catchError(this.errorMgmt));
+
+    const headers = new Headers();
+    headers.append('Content-Type', 'multipart/form-data'); // Specify the content type
+
+    return this.http.post(url, formData, { headers: headers }).pipe(catchError(this.handleError));
   }
 
 
@@ -274,10 +278,14 @@ export class ListDossiersService {
 
     this.params = this.params.set("alf_ticket", this.authService.getTicketEcm());
     let url = `${environment.baseUrl}/s/com/addinn/update/updatesaisine?nomDossier=${nomDossier}&nomSaisine=${data}`;
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data'); // Specify the content type
+
     return this.http
-      .put(url, formData, { params: this.params })
-      .pipe(catchError(this.errorMgmt));
-  }
+      .put(url, formData, { params: this.params, headers: headers })
+      .pipe(catchError(this.handleError)); // Handle errors using your error handling method
+}
   //________________________________________________________________________________________________________________________
 
   updateTelephone(num , nomDossier){
@@ -312,7 +320,9 @@ export class ListDossiersService {
     });
   }
 
-
-
+  private handleError(error: any) {
+    console.error('An error occurred:', error);
+    return throwError(error); // Rethrow the error or handle it as needed
+  }
 }
 

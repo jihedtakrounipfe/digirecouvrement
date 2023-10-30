@@ -1,6 +1,8 @@
 <section>
   <form [formGroup]="updateForm">
+
     <div class="d-flex justify-content-between">
+
       <div class="form-group col-md-2">
         <label class="title"><p class="fnt-size fw-bold">Nom de saisine</p></label>
         <div class="d-inline-block text-dark w-100 px-1">
@@ -41,21 +43,18 @@
         </div>
       </div>
 
-      <div class="form-group col-md-1">
+      <div class="form-group col-md-2">
         <label class="title"><p class="fnt-size fw-bold">Pièce jointe</p></label>
-        <button mat-stroked-button (click)="openModal()" class="upload-btn">
-          <span class="d-flex mt-1 justify-content-center">
-            <img src="./assets/pdf-file.png" class="upload-icon" />
-          </span>
-        </button>
-        &nbsp;
+        <div class="d-inline-block text-dark w-100 px-1">
+          <input type="file" (change)="onFileChange($event)" accept=".pdf, .doc, .docx" />
+        </div>
       </div>
 
       <div class="col-md-1 d-flex justify-content-center">
-        <a (click)="onSubmit()" type="submit">
-          <img src="./assets/plus.png" class="icon" />
-        </a>
+        <a (click)="save()" type="submit"><img src="./assets/plus.png" class="icon" /></a>
       </div>
+
     </div>
+
   </form>
 </section>
