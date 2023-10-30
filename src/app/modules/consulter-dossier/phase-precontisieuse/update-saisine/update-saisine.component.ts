@@ -7,7 +7,7 @@ import { SuccessMessageComponent } from 'app/shared/success-message/success-mess
 import { PreviewService } from 'app/services/preview.service';
 import { HttpClient } from '@angular/common/http';
 import { UploadFileModalComponent } from 'app/shared/upload-file-modal/upload-file-modal.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-update-saisine',
   templateUrl: './update-saisine.component.html',
@@ -28,7 +28,7 @@ export class UpdateSaisineComponent implements OnInit {
     private api: PreviewService,
     private dossiers: ListDossiersService,
     public dialog: MatDialog,
-    private route: Router,
+    private route: ActivatedRoute,
     private http: HttpClient
   ) {}
 
