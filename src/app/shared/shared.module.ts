@@ -7,6 +7,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { AffecterDossierComponent } from './affecter-dossier/affecter-dossier.component';
 import { SignalerDossierComponent } from './signaler-dossier/signaler-dossier.component';
 import { FinancierModalComponent } from './financier-modal/financier-modal.component';
+import { SaisineModalComponent } from './saisine-modal/saisine-modal.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 
 import { MaterialModule } from '@alfresco/adf-core';
@@ -23,6 +24,7 @@ import { SupprimerConsulterChargeModalComponent } from './supprimer-consulter-ch
     AffecterDossierComponent,
     SignalerDossierComponent,
     FinancierModalComponent,
+    SaisineModalComponent,
     ConfirmationModalComponent,
     SuccessMessageComponent,
     UploadFileModalComponent,

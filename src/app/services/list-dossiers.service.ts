@@ -263,12 +263,12 @@ export class ListDossiersService {
 
   //________________________________________________________________________________________________________________________
   // Get versement By Name
-  getsaisineName(nomDossier:string,data:string) {
+  getSaisineName(nomDossier:string,data:string) {
     return this.http.get(`${environment.baseUrl}/s/com/addinn/get/getsaisinenom?nomDossier=${nomDossier}&nomSaisine=${data}&alf_ticket=${this.authService.getTicketEcm()}`,{responseType: 'json'} )
     .pipe(catchError(this.errorMgmt));
     }
   //Update saisine
-  updatesaisine(saisine:any,nomDossier:string,data:string){
+  updateSaisine(saisine:any,nomDossier:string,data:string){
     console.log('service elements',saisine,nomDossier,data)
 
     this.params = this.params.set("alf_ticket",this.authService.getTicketEcm())
