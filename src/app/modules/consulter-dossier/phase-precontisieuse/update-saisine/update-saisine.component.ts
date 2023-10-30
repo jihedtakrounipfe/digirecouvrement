@@ -59,7 +59,7 @@ export class UpdateSaisineComponent implements OnInit {
   });
 
   // Update the save function to handle file uploads with FormData
-  save() {
+  onSubmit() {
     this.submitted = true;
     if (!this.updateForm.valid) {
       return false;
