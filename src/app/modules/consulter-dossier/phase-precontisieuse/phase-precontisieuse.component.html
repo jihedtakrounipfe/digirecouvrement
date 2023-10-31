@@ -415,7 +415,10 @@
             </mat-cell>
           </ng-container>
 
-          {{saisine.nompiecejointe}}
+          <ng-container matColumnDef="nompiecejointe">
+            <mat-header-cell *matHeaderCellDef> Nom de la pièce jointe </mat-header-cell>
+            <mat-cell *matCellDef="let saisine">{{ saisine.nompiecejointe }}</mat-cell>
+          </ng-container>
 
         <mat-header-row *matHeaderRowDef="displaySaisineTab"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displaySaisineTab;"></mat-row>
