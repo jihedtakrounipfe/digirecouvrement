@@ -99,13 +99,13 @@ export class UpdateSaisineComponent implements OnInit {
     });
   }
 
-  onFileChange(event: any) {
+  /*onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
       // Process the selected file here, for example, you can store it in the component property or update the FormData control.
       this.updateForm.patchValue({ formData: file });
     }
-  }
+  }*/
   public openModal() {
     const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
     dialogRef.afterClosed().subscribe((submit) => {

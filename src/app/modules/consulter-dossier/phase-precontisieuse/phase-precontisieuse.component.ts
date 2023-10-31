@@ -74,7 +74,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
     this.frais =  new MatTableDataSource(data.fraisprecontent);
     this.garanties =  new MatTableDataSource(data.garantie);
     this.saisine =  new MatTableDataSource(data.saisine);
-    this.nompiecejointe =  data.saisine.nompiecejointe;
+    this.nompiecejointe = data.saisine.nompiecejointe;
 
          console.log('info dossier all data',data);
          console.log('info dossier precontisieuse',this.precontisieuse);
