@@ -405,14 +405,13 @@
 
 
           <ng-container matColumnDef="piecejointe">
-            <mat-header-cell *matHeaderCellDef> Télécharger fichier </mat-header-cell>
-            <mat-cell *matCellDef="let saisine">
+            <mat-header-cell *matHeaderCellDef> Telecharger fichier </mat-header-cell>
+            <mat-cell *matCellDef="let saisine" >
               <div class="px-4">
-                <a href="{{baseUrl}}{{saisine.piecejointe}}{{ticket}}">
-                  <mat-icon class="action-icon">cloud_download</mat-icon>
-                </a>
-              </div>
-              {{saisine.nompiecejointe}}
+              <a href="{{baseUrl}}{{saisine.piecejointe}}{{ticket}}">
+                <mat-icon class="action-icon" >cloud_download</mat-icon>
+              </a>
+            </div>
             </mat-cell>
           </ng-container>
 
