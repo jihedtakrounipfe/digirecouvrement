@@ -27,7 +27,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
   public baseUrl=`${environment.baseUrl}`
   public ticket=`?alf_ticket=${this.authService.getTicketEcm()}`
   public precontisieuse:string;
-  public session: string;
+  public session: any;
   public creance:any;
   public versement:any;
   public frais:any;
