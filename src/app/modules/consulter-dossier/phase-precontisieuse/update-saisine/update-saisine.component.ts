@@ -57,6 +57,21 @@ export class UpdateSaisineComponent implements OnInit {
     formData: new FormControl(null, [Validators.required]),
   });
 
+  public openModal() {
+    const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
+    dialogRef.afterClosed().subscribe((submit) => {
+      if (submit) {
+        const formData = new FormData();
+        this.file = submit;
+        formData.append('file', this.file);
+        this.updateForm.patchValue({ formData: formData });
+        console.log('File selected:', this.file);
+      } else {
+        this.file = 'Nothing...';
+      }
+    });
+  }
+
   public save() {
     this.submitted = true;
     if (!this.updateForm.valid) {
@@ -106,20 +121,7 @@ export class UpdateSaisineComponent implements OnInit {
       this.updateForm.patchValue({ formData: file });
     }
   }*/
-  public openModal() {
-    const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
-    dialogRef.afterClosed().subscribe((submit) => {
-      if (submit) {
-        const formData = new FormData();
-        this.file = submit;
-        formData.append('file', this.file);
-        this.updateForm.patchValue({ formData: formData });
-        console.log('File selected:', this.file);
-      } else {
-        this.file = 'Nothing...';
-      }
-    });
-  }
+
 
   Type: string[] = [
     'Ben Arous',
