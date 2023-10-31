@@ -22,7 +22,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
   public displayVrsementTab: string[] = ['select','nomVersement' , 'dateVersement' ,'montantVersement', 'modeReglement' , 'affectaion','telecharger'];
   public displayFraisTab: string[] = ['select','fraisprecont','naturefrais' , 'typefrais' ,'tier', 'montants','datedeffdesir'];
   public displayGarantiesTab: string[] = ['select','typeGar','natureHypotheque','Rang','immatriculation','dateFinDeLHypotheque','montantDeLHypotheque','valeurEstimee','hypthequebanques','beneficiairehypotheque'];
-  public displaySaisineTab: string[] = ['select','nomsaisine','region','typeDeTiers','nomDeTiers','piecejointe'];
+  public displaySaisineTab: string[] = ['select','nomsaisine','region','typeDeTiers','nomDeTiers','piecejointe', 'nompiecejointe'];
   public nomDossier = this.route.snapshot.params.nomDossier;
   public baseUrl=`${environment.baseUrl}`
   public ticket=`?alf_ticket=${this.authService.getTicketEcm()}`
@@ -33,6 +33,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
   public frais:any;
   public garanties:any;
   public saisine:any;
+  public nompiecejointe:string;
   public file;
   public subscription:Subscription;
 
@@ -73,6 +74,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
     this.frais =  new MatTableDataSource(data.fraisprecontent);
     this.garanties =  new MatTableDataSource(data.garantie);
     this.saisine =  new MatTableDataSource(data.saisine);
+    this.nompiecejointe =  new MatTableDataSource(data.saisine.nompiecejointe);
 
          console.log('info dossier all data',data);
          console.log('info dossier precontisieuse',this.precontisieuse);

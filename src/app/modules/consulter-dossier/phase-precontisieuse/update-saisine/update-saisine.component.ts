@@ -70,7 +70,7 @@ export class UpdateSaisineComponent implements OnInit {
         formData.append('nomDeTiers', this.updateForm.value.nomDeTiers);
         formData.append('file', this.updateForm.value.formData);
 
-        this.dossiers.updateCreance(formData, this.nomDossier, this.saisine).subscribe({
+        this.dossiers.updateSaisine(formData, this.nomDossier, this.saisine).subscribe({
           complete: () => {
             this.OpenSuccessDialog();
             this.reloadData.emit(this.reload);
