@@ -412,9 +412,10 @@
                 <mat-icon class="action-icon" >cloud_download</mat-icon>
               </a>
             </div>
-            {{nompiecejointe}}
             </mat-cell>
           </ng-container>
+
+          {{saisine.nompiecejointe}}
 
         <mat-header-row *matHeaderRowDef="displaySaisineTab"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displaySaisineTab;"></mat-row>

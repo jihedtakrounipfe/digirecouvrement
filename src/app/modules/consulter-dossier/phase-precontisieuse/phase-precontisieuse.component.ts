@@ -33,7 +33,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
   public frais:any;
   public garanties:any;
   public saisine:any;
-  public nompiecejointe:string;
+  public nompiecejointe:any;
   public file;
   public subscription:Subscription;
 
@@ -82,6 +82,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
          console.log('info versement',this.versement);
          console.log('info frais',this.frais);
          console.log('info saisine',this.saisine);
+         console.log('info nompiecejointe',this.nompiecejointe);
 
     this.creance.paginator = this.paginator;
     this.versement.paginator = this.paginator;
