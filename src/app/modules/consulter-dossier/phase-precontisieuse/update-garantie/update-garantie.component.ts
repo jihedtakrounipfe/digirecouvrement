@@ -48,13 +48,14 @@ public reload:string;
     this.subscription= this.api.garantieTag.subscribe((data:any)=>{  data; console.log('selected elements',this.garantie = data ,this.nomDossier)
     //subscriptions by nomEcheancier
     this.dossiers.getGarantiebyName(this.nomDossier , this.garantie).subscribe((data) => {
-      console.log('garantie by id',this.garantie)
+      console.log('garantie by id',this.garantie);
+      const datefinhypotheque = new Date(data["datefinhypotheque"]);
       this.updateForm.setValue({
         typeGar:data["typeGar"],
         natureHypotheque:data["natureHypotheque"],
         immatriculation:data["immatriculation"],
         rang:data["rang"],
-        datefinhypotheque:data["datefinhypotheque"],
+        datefinhypotheque:datefinhypotheque,
         montanthypotheque:data["montanthypotheque"],
         valeurestimee:data["valeurestimee"],
         hypothequebanque:data["hypothequebanque"],

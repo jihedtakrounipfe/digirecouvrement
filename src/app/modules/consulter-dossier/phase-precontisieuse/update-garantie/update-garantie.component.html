@@ -43,7 +43,7 @@
         <label class="title"><p class="fnt-size fw-bold">Immatriculation</p></label>
         <div class="d-inline-block text-dark w-100 px-1">
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput placeholder="Date d’effet des IR" type="text" formControlName="immatriculation" />
+            <input matInput placeholder="Immatriculation" type="text" formControlName="immatriculation" />
           </mat-form-field>
         </div>
       </div>
@@ -52,15 +52,15 @@
       <div class="form-group col-md-2">
         <label class="title"><p class="fnt-size fw-bold">Date fin de l’hypothèque</p></label>
         <div class="d-inline-block text-dark w-100 px-1">
-          <!-- <mat-form-field appearance="outline" class="w-100">
-            <input matInput placeholder="Montant" type="text" formControlName="datefinhypotheque" />
-          </mat-form-field> -->
           <mat-form-field appearance="outline" class="w-100">
-            <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR"
-              formControlName="datefinhypotheque">
+            <input matInput [matDatepicker]="picker" placeholder="Date d’effet des IR" formControlName="datefinhypotheque">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
+
+          <div class="date-display">
+            Date fin de l’hypothèque: {{ updateForm.get('datefinhypotheque').value | date: 'dd/MM/yyyy' }}
+          </div>
         </div>
       </div>
 
