@@ -22,7 +22,7 @@ export class PhasePrecontisieuseComponent implements OnInit {
   public displayVrsementTab: string[] = ['select','nomVersement' , 'dateVersement' ,'montantVersement', 'modeReglement' , 'affectaion','telecharger'];
   public displayFraisTab: string[] = ['select','fraisprecont','naturefrais' , 'typefrais' ,'tier', 'montants','datedeffdesir'];
   public displayGarantiesTab: string[] = ['select','typeGar','natureHypotheque','Rang','immatriculation','dateFinDeLHypotheque','montantDeLHypotheque','valeurEstimee','hypthequebanques','beneficiairehypotheque'];
-  public displaySaisineTab: string[] = ['select','nom','nomsaisine','region','typeDeTiers','nomDeTiers','piecejointe', 'nompiecejointe'];
+  public displaySaisineTab: string[] = ['select','nomsaisine','region','typeDeTiers','nomDeTiers','piecejointe', 'nompiecejointe'];
   public nomDossier = this.route.snapshot.params.nomDossier;
   public baseUrl=`${environment.baseUrl}`
   public ticket=`?alf_ticket=${this.authService.getTicketEcm()}`
