@@ -19,7 +19,7 @@ export class UpdateSaisineComponent implements OnInit {
   public reload: string;
   public subscription: Subscription;
   public url: string;
-  public file: string;
+  public file:any;
   public nomDossier = this.route.snapshot.params.nomDossier;
   submitted = false;
   param: number;
@@ -54,17 +54,15 @@ export class UpdateSaisineComponent implements OnInit {
     region: new FormControl("", [Validators.required, Validators.minLength(3)]),
     typeDeTiers: new FormControl("", [Validators.required, Validators.minLength(3)]),
     nomDeTiers: new FormControl("", [Validators.required, Validators.minLength(3)]),
-    formData: new FormControl(null, [Validators.required]),
+    file: new FormControl(null, [Validators.required]),
   });
 
   public openModal() {
     const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
     dialogRef.afterClosed().subscribe((submit) => {
       if (submit) {
-        const formData = new FormData();
         this.file = submit;
-        formData.append('file', this.file);
-        this.updateForm.patchValue({ formData }); // Set the 'formData' value here
+        this.updateForm.patchValue({ file: this.file }); // Set the 'file' value here
         console.log('File selected:', this.file);
       } else {
         this.file = 'Nothing...';
@@ -83,7 +81,7 @@ export class UpdateSaisineComponent implements OnInit {
         formData.append('region', this.updateForm.value.region);
         formData.append('typeDeTiers', this.updateForm.value.typeDeTiers);
         formData.append('nomDeTiers', this.updateForm.value.nomDeTiers);
-        formData.append('file', this.updateForm.value.formData);
+        formData.append('file', this.updateForm.value.file);
 
         this.dossiers.updateSaisine(formData, this.nomDossier, this.saisine).subscribe({
           complete: () => {
