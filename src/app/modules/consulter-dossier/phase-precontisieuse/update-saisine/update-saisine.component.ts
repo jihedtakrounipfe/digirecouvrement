@@ -40,10 +40,10 @@ export class UpdateSaisineComponent implements OnInit {
       this.dossiers.getSaisineName(this.nomDossier, this.saisine).subscribe((data) => {
         console.log('saisine by id', this.saisine);
         this.updateForm.setValue({
-          nomsaisine: data["nomsaisine"],
-          region: data["region"],
-          typeDeTiers: data["typeDeTiers"],
-          nomDeTiers: data["nomDeTiers"],
+          nomsaisine:data["nomsaisine"],
+          region:data["region"],
+          typeDeTiers:data["typeDeTiers"],
+          nomDeTiers:data["nomDeTiers"],
         });
       });
     });
