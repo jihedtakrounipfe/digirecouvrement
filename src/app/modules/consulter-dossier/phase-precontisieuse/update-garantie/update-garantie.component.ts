@@ -15,15 +15,14 @@ import { DatePipe } from '@angular/common';
   templateUrl: './update-garantie.component.html',
   styleUrls: ['./update-garantie.component.css'],
   providers: [
-
-    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
-
+      DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: 'fr' },
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
+    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
   ],
 })
 
