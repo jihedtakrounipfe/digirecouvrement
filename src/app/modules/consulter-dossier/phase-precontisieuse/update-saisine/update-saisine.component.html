@@ -46,7 +46,9 @@
       <div class="form-group col-md-2">
         <label class="title"><p class="fnt-size fw-bold">Pièce jointe</p></label>
         <div class="d-inline-block text-dark w-100 px-1">
-          <button type="button"  mat-button class="new-btn" (click)="openModal()">Ajouter</button>
+          <button mat-fab color="accent" aria-label="Déposer un fichier"  matTooltip="Déposer un fichier" (click)="openModal()">
+            <mat-icon>cloud_upload</mat-icon>
+          </button>
         </div>
       </div>
 

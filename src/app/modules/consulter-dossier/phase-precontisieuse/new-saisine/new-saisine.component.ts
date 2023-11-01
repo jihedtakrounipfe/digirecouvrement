@@ -18,6 +18,9 @@ export class NewSaisineComponent implements OnInit {
   public file: string;
   public reload: string;
   public nomDossier = this.route.snapshot.params.nomDossier;
+  submitted = false;
+  param: number;
+  saisine: string;
 
   constructor(
     private api: PreviewService,
@@ -72,22 +75,25 @@ export class NewSaisineComponent implements OnInit {
     });
   }
 
-  public onFileChange(event: any): void {
-    const file = event.target.files[0];
-    this.New_Saisine_Form.patchValue({ formData: file });
-  }
+  // public onFileChange(event: any): void {
+  //   const file = event.target.files[0];
+  //   this.New_Saisine_Form.patchValue({ formData: file });
+  // }
 
   public openModal() {
-    const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
-    dialogRef.afterClosed().subscribe((submit) => {
-      if (submit) {
-        this.New_Saisine_Form.patchValue({ formData: submit });
-        console.log('Selected file:', submit.name);
-      } else {
-        this.file = 'Nothing...';
-      }
-    });
-  }
+      const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
+      dialogRef.afterClosed().subscribe((submit) => {
+        if (submit) {
+          const formData = new FormData();
+          this.file = submit;
+          formData.append('file', this.file);
+          this.New_Saisine_Form.patchValue({ formData }); // Set the 'formData' value here
+          console.log('File selected:', this.file);
+        } else {
+          this.file = 'Nothing...';
+        }
+      });
+    }
 
   Type: string[] = ['Ben Arous', 'Sousse', 'Gafsa'];
   Autre: string[] = ['Avocat', 'Huissier'];
