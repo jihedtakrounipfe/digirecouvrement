@@ -64,7 +64,7 @@ export class UpdateSaisineComponent implements OnInit {
         const formData = new FormData();
         this.file = submit;
         formData.append('file', this.file);
-        this.updateForm.patchValue({ formData: formData });
+        this.updateForm.patchValue({ formData }); // Set the 'formData' value here
         console.log('File selected:', this.file);
       } else {
         this.file = 'Nothing...';
@@ -121,7 +121,6 @@ export class UpdateSaisineComponent implements OnInit {
       this.updateForm.patchValue({ formData: file });
     }
   }*/
-
 
   Type: string[] = [
     'Ben Arous',
