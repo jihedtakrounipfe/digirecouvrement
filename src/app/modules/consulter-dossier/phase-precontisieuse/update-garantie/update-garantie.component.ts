@@ -9,7 +9,7 @@ import { SuccessMessageComponent } from 'app/shared/success-message/success-mess
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MomentDateAdapter } from '@alfresco/adf-core';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-update-garantie',
   templateUrl: './update-garantie.component.html',
@@ -41,6 +41,7 @@ public reload:string;
     private route: ActivatedRoute,
     private api:PreviewService,
     public dialog: MatDialog,
+    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
@@ -50,12 +51,13 @@ public reload:string;
     this.dossiers.getGarantiebyName(this.nomDossier , this.garantie).subscribe((data) => {
       console.log('garantie by id',this.garantie);
       const datefinhypotheque = new Date(data["datefinhypotheque"]);
+      const formattedDate = this.datePipe.transform(datefinhypotheque, 'dd/MM/yyyy');
       this.updateForm.setValue({
         typeGar:data["typeGar"],
         natureHypotheque:data["natureHypotheque"],
         immatriculation:data["immatriculation"],
         rang:data["rang"],
-        datefinhypotheque:datefinhypotheque,
+        datefinhypotheque:formattedDate,
         montanthypotheque:data["montanthypotheque"],
         valeurestimee:data["valeurestimee"],
         hypothequebanque:data["hypothequebanque"],
