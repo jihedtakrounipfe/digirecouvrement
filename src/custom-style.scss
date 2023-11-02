@@ -12,6 +12,7 @@ $theme:   mat-light-theme($primary, $accent, $warn);
 @include angular-material-theme($theme);
 @include adf-core-theme($theme);
 
+
 body, html {
   margin: 0;
   height: 100%;
