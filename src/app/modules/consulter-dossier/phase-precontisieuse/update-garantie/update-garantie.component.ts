@@ -9,20 +9,21 @@ import { SuccessMessageComponent } from 'app/shared/success-message/success-mess
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 import { MomentDateAdapter } from '@alfresco/adf-core';
-import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-update-garantie',
   templateUrl: './update-garantie.component.html',
   styleUrls: ['./update-garantie.component.css'],
   providers: [
-      DatePipe,
-    { provide: MAT_DATE_LOCALE, useValue: 'fr' },
+
+    {provide: MAT_DATE_LOCALE, useValue: 'fr'},
+
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+    {provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS},
   ],
 })
 
@@ -40,7 +41,6 @@ public reload:string;
     private route: ActivatedRoute,
     private api:PreviewService,
     public dialog: MatDialog,
-    private datePipe: DatePipe,
   ) { }
 
   ngOnInit(): void {
@@ -48,15 +48,13 @@ public reload:string;
     this.subscription= this.api.garantieTag.subscribe((data:any)=>{  data; console.log('selected elements',this.garantie = data ,this.nomDossier)
     //subscriptions by nomEcheancier
     this.dossiers.getGarantiebyName(this.nomDossier , this.garantie).subscribe((data) => {
-      console.log('garantie by id',this.garantie);
-      const datefinhypotheque = new Date(data["datefinhypotheque"]);
-      const formattedDate = this.datePipe.transform(datefinhypotheque, 'dd/MM/yyyy');
+      console.log('garantie by id',this.garantie)
       this.updateForm.setValue({
         typeGar:data["typeGar"],
         natureHypotheque:data["natureHypotheque"],
         immatriculation:data["immatriculation"],
         rang:data["rang"],
-        datefinhypotheque:formattedDate,
+        datefinhypotheque:data["datefinhypotheque"],
         montanthypotheque:data["montanthypotheque"],
         valeurestimee:data["valeurestimee"],
         hypothequebanque:data["hypothequebanque"],
