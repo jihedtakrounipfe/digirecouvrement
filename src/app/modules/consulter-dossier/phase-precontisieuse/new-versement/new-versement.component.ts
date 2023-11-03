@@ -38,11 +38,9 @@ export class NewVersementComponent implements OnInit {
   ) { }
 
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   New_Versement_Form = new FormGroup({
-
     dateVersement: new FormControl("", [ Validators.required]),
     montantVersement: new FormControl("", [ Validators.required]),
     modeReglement: new FormControl("", [ Validators.required]),
@@ -54,9 +52,16 @@ export class NewVersementComponent implements OnInit {
 
   public save() {
     console.log('Versement form content',this.New_Versement_Form.value,this.nomDossier);
-    this.dossiers.CreateVersemntPrecontent(this.New_Versement_Form.value,this.nomDossier).subscribe({
+    const formData = new FormData();
+    formData.append('dateVersement', this.New_Versement_Form.value.dateVersement);
+    formData.append('montantVersement', this.New_Versement_Form.value.montantVersement);
+    formData.append('modeReglement', this.New_Versement_Form.value.modeReglement);
+    formData.append('affectaion', this.New_Versement_Form.value.affectaion);
+    formData.append('referenceVersement', this.New_Versement_Form.value.referenceVersement);
+    formData.append('typeVersement', this.New_Versement_Form.value.typeVersement);
+    this.dossiers.CreateVersemntPrecontent(formData,this.nomDossier).subscribe({
       complete: () => {
-        console.log('Echeancier successfully created!');
+        console.log('Versement successfully created!');
         this.OpenSuccessDialog();
         this.reloadData.emit(this.reload);
       },
