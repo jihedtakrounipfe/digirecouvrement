@@ -15,40 +15,43 @@ import { PreviewService } from 'app/services/preview.service';
 export class NewSaisineComponent implements OnInit {
   @Output() reloadData = new EventEmitter();
   public url: string;
+  public nomDossier: string;
   public file: string;
   public reload: string;
-  public nomDossier = this.route.snapshot.params.nomDossier;
   submitted = false;
   param: number;
   saisine: string;
+  public FormData: FormData = new FormData();
+  New_Saisine_Form: FormGroup;
 
   constructor(
     private api: PreviewService,
     private dossiers: ListDossiersService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
-  ) {}
 
+  ) {
+    this.nomDossier = this.route.snapshot.params.nomDossier;
+
+    this.New_Saisine_Form = new FormGroup({
+      nomsaisine: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      region: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      typeDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      nomDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      formData: new FormControl(null, [Validators.required]), // Remove the minLength(3) for file field
+    });
+  }
   ngOnInit(): void {}
 
-  New_Saisine_Form = new FormGroup({
-    nomsaisine: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    region: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    typeDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    nomDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    formData: new FormControl(null, [Validators.required]), // Remove the minLength(3) for file field
-  });
-
   public save() {
-    const formData = new FormData();
 
-    formData.append('nomsaisine', this.New_Saisine_Form.value.nomsaisine);
-    formData.append('region', this.New_Saisine_Form.value.region);
-    formData.append('typeDeTiers', this.New_Saisine_Form.value.typeDeTiers);
-    formData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
-    formData.append('file', this.New_Saisine_Form.value.formData);
+    this.FormData.append('nomsaisine', this.New_Saisine_Form.value.nomsaisine);
+    this.FormData.append('region', this.New_Saisine_Form.value.region);
+    this.FormData.append('typeDeTiers', this.New_Saisine_Form.value.typeDeTiers);
+    this.FormData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
+    this.FormData.append('file', this.New_Saisine_Form.get('formData')?.value);
 
-    this.dossiers.CreateSaisine(formData, this.nomDossier).subscribe({
+    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe({
       complete: () => {
         console.log('Saisine successfully created!');
         this.OpenSuccessDialog();
@@ -81,19 +84,20 @@ export class NewSaisineComponent implements OnInit {
   // }
 
   public openModal() {
-      const dialogRef = this.dialog.open(UploadFileModalComponent, { data: { name: this.nomDossier }, width: '600px', height: '350px', disableClose: true });
-      dialogRef.afterClosed().subscribe((submit) => {
-        if (submit) {
-          const formData = new FormData();
-          this.file = submit;
-          formData.append('file', this.file);
-          this.New_Saisine_Form.patchValue({ formData }); // Set the 'formData' value here
-          console.log('File selected:', this.file);
-        } else {
-          this.file = 'Nothing...';
-        }
+    const dialogRef =
+    this.dialog.open(UploadFileModalComponent,
+      {
+      data: {name: "upload File"},
+      width:'700px',
+      height:'480px',
+      disableClose: true
       });
-    }
+    dialogRef.afterClosed().subscribe((Myfile) => {
+      console.log(Myfile,'after close popup file')
+      this.FormData = Myfile
+  })
+  }
+
 
   Type: string[] = ['Ben Arous', 'Sousse', 'Gafsa'];
   Autre: string[] = ['Avocat', 'Huissier'];
