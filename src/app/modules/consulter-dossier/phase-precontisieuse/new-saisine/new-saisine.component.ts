@@ -49,7 +49,7 @@ export class NewSaisineComponent implements OnInit {
     this.FormData.append('region', this.New_Saisine_Form.value.region);
     this.FormData.append('typeDeTiers', this.New_Saisine_Form.value.typeDeTiers);
     this.FormData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
-    this.FormData.append('file', this.New_Saisine_Form.formData);
+    this.FormData.append('file', this.New_Saisine_Form.get('formData').value);
 
     this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe({
       complete: () => {
