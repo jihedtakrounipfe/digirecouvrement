@@ -6,7 +6,7 @@ import { ListDossiersService } from 'app/services/list-dossiers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from 'app/shared/success-message/success-message.component';
 import { PreviewService } from 'app/services/preview.service';
-
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-new-saisine',
   templateUrl: './new-saisine.component.html',
@@ -51,22 +51,24 @@ export class NewSaisineComponent implements OnInit {
     this.FormData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
     this.FormData.append('file', this.New_Saisine_Form.get('formData').value);
 
-    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe((data:any)=>{
-      console.log('Saisine successfully created!');
-      this.api.OpenSuccessDialog();
-      this.reloadData.emit(this.reload);
-    }, (error)=>{
-      console.log(error);
-      this.api.OpenEchecDialog();}
-      // complete: () => {
-      //   console.log('Saisine successfully created!');
-      //   this.api.OpenSuccessDialog();
-      //   this.reloadData.emit(this.reload);
-      // },
-      // error: (e) => {
-      //   console.log(e);
-      //   this.api.OpenEchecDialog();
-      // },
+    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe(
+      (data:any) => {
+        console.log('Saisine successfully created!');
+        this.api.OpenSuccessDialog();
+        this.reloadData.emit(this.reload);
+      },
+      (error) => {
+      console.error('Error creating saisine:', error);
+      if (error instanceof HttpErrorResponse && error.error instanceof ErrorEvent) {
+        // Handle client-side or network error
+        console.error('An error occurred on the client side:', error.error.message);
+      } else {
+        // The response may contain the error message
+        console.error('Server error:', error.error);
+        // You can handle the error and open a dialog with the error message if needed
+        this.api.OpenEchecDialog();
+      }
+    }
     );
   }
 
