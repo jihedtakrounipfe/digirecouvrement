@@ -151,7 +151,7 @@ export class ListDossiersService {
   }
 
   // Create Saisine
-  CreateSaisine(FormData:FormData, nomDossier: string): Observable<any> {
+  CreateSaisine(FormData:FormData, nomDossier: string) {
     let url = `${environment.baseUrl}/s/com/addinn/post/postsaisine?nomDossier=${nomDossier}&alf_ticket=${this.authService.getTicketEcm()}`;
     console.log('service data', FormData);
     return this.http.post(url, FormData);

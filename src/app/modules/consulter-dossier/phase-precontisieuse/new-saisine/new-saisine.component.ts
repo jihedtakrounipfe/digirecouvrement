@@ -54,10 +54,10 @@ export class NewSaisineComponent implements OnInit {
         this.OpenSuccessDialog();
         this.reloadData.emit(this.reload);
       },
-      /*error: (e) => {
+      error: (e) => {
         console.log(e.message);
         this.api.OpenEchecDialog();
-      },*/
+      },
     });
   }
 
