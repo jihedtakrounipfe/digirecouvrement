@@ -51,17 +51,23 @@ export class NewSaisineComponent implements OnInit {
     this.FormData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
     this.FormData.append('file', this.New_Saisine_Form.get('formData').value);
 
-    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe({
-      complete: () => {
-        console.log('Saisine successfully created!');
-        this.api.OpenSuccessDialog();
-        this.reloadData.emit(this.reload);
-      },
-      error: (e) => {
-        console.log(e);
-        this.api.OpenEchecDialog();
-      },
-    });
+    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe((data:any)=>{
+      console.log('Saisine successfully created!');
+      this.api.OpenSuccessDialog();
+      this.reloadData.emit(this.reload);
+    }, (error)=>{
+      console.log(error);
+      this.api.OpenEchecDialog();}
+      // complete: () => {
+      //   console.log('Saisine successfully created!');
+      //   this.api.OpenSuccessDialog();
+      //   this.reloadData.emit(this.reload);
+      // },
+      // error: (e) => {
+      //   console.log(e);
+      //   this.api.OpenEchecDialog();
+      // },
+    );
   }
 
   public OpenSuccessDialog() {
