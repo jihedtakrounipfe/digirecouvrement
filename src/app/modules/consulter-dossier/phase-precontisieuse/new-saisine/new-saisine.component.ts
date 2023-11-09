@@ -6,7 +6,7 @@ import { ListDossiersService } from 'app/services/list-dossiers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessMessageComponent } from 'app/shared/success-message/success-message.component';
 import { PreviewService } from 'app/services/preview.service';
-import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-new-saisine',
   templateUrl: './new-saisine.component.html',
@@ -15,33 +15,30 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class NewSaisineComponent implements OnInit {
   @Output() reloadData = new EventEmitter();
   public url: string;
-  public nomDossier: string;
   public file: string;
   public reload: string;
   submitted = false;
   param: number;
   saisine: string;
+  public nomDossier = this.route.snapshot.params.nomDossier;
   public FormData: FormData = new FormData();
-  New_Saisine_Form: FormGroup;
 
   constructor(
     private api: PreviewService,
     private dossiers: ListDossiersService,
     public dialog: MatDialog,
     private route: ActivatedRoute,
+  ) {}
 
-  ) {
-    this.nomDossier = this.route.snapshot.params.nomDossier;
+  ngOnInit(): void {}
 
-    this.New_Saisine_Form = new FormGroup({
+    New_Saisine_Form = new FormGroup({
       nomsaisine: new FormControl('', [Validators.required, Validators.minLength(3)]),
       region: new FormControl('', [Validators.required, Validators.minLength(3)]),
       typeDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
       nomDeTiers: new FormControl('', [Validators.required, Validators.minLength(3)]),
       formData: new FormControl(null, [Validators.required]), // Remove the minLength(3) for file field
     });
-  }
-  ngOnInit(): void {}
 
   public save() {
 
@@ -51,25 +48,17 @@ export class NewSaisineComponent implements OnInit {
     this.FormData.append('nomDeTiers', this.New_Saisine_Form.value.nomDeTiers);
     this.FormData.append('file', this.New_Saisine_Form.get('formData').value);
 
-    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe(
-      (data:any) => {
+    this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe({
+      complete: () => {
         console.log('Saisine successfully created!');
-        this.api.OpenSuccessDialog();
+        this.OpenSuccessDialog();
         this.reloadData.emit(this.reload);
       },
-      (error) => {
-      console.error('Error creating saisine:', error);
-      if (error instanceof HttpErrorResponse && error.error instanceof ErrorEvent) {
-        // Handle client-side or network error
-        console.error('An error occurred on the client side:', error.error.message);
-      } else {
-        // The response may contain the error message
-        console.error('Server error:', error.error);
-        // You can handle the error and open a dialog with the error message if needed
+      error: (e) => {
+        console.log(e);
         this.api.OpenEchecDialog();
-      }
-    }
-    );
+      },
+    });
   }
 
   public OpenSuccessDialog() {

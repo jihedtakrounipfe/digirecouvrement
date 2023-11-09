@@ -55,10 +55,10 @@ export class NewGarantieComponent implements OnInit {
 
   public save() {
 
-    console.log('Echeancier form content',this.New_Garantie_Form .value,this.nomDossier);
+    console.log('Garantie form content',this.New_Garantie_Form .value,this.nomDossier);
     this.dossiers.CreateGarantie(this. New_Garantie_Form .value,this.nomDossier).subscribe({
       complete: () => {
-        console.log('Echeancier successfully created!');
+        console.log('Garantie successfully created!');
         this.OpenSuccessDialog();
         this.reloadData.emit(this.reload);
       },
