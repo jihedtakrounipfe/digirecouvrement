@@ -54,7 +54,7 @@ export class NewSaisineComponent implements OnInit {
     this.dossiers.CreateSaisine(this.FormData, this.nomDossier).subscribe({
       complete: () => {
         console.log('Saisine successfully created!');
-        this.OpenSuccessDialog();
+        this.api.OpenSuccessDialog();
         this.reloadData.emit(this.reload);
       },
       error: (e) => {
