@@ -297,7 +297,7 @@ public filter_montant(min:number,max:number) {
 
 }
 
-  montant = ['100 000','15000','1 000'];
+  montant = ['100000','15000','1000'];
   status = ['En cours','À Faire','Traité','Signalé','Affecté','Non affecté']
   charge = ['Falih Abdul','Faycel Tounsi','brahim salim','Najah Mrabet','Walid Chebbi']
   phase = ['Amiable','Judiciaire','Précontentieuse']
