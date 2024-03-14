@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://recouvrement-v1.dev2.addinn.com/alfresco'
+  baseUrl: 'http://localhost:8080/alfresco'
   //baseUrl: 'recouvrement-v1.dev2.addinn.com/alfresco'
 };
